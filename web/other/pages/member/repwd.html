@@ -1,0 +1,46 @@
+<!--企业会员信息表-->
+
+<form class="repwd" method="post">
+    <table class="editForm">
+        <tr>
+            <th>
+                <label>输入密码:</label>
+            </th>
+            <td>
+                <input class="pwd" name="pwd">
+            </td>
+        </tr>
+
+        <tr>
+            <th>
+                <label>重新输入:</label>
+            </th>
+            <td>
+                <input class="reinpwd" name="repwd">
+            </td>
+        </tr>
+
+
+        <tr>
+            <td colspan="2" class="submitBox">
+                <a href="javascript:void(0)"
+                   onclick="member.MemberPwdForm('.repwd','member/member/repwd')"
+                   class="easyui-linkbutton saveButton"
+                   data-options="iconCls:'icon-save'">提交</a>
+                <a href="javascript:void(0)"
+                   onclick="member.clearForm('.repwd')" class="easyui-linkbutton saveButton"
+                   data-options="iconCls:'icon-remove'">清空</a>
+            </td>
+        </tr>
+    </table>
+</form>
+<script>
+    $('.pwd').textbox({
+        prompt: '密码必须为4至24位之间',
+        type: 'password'
+    });
+    $('.reinpwd').textbox({
+        prompt: '密码必须为4至24位之间',
+        type: 'password'
+    });
+</script>

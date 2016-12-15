@@ -1,0 +1,573 @@
+<!--高级会员信息表-孵化器-->
+<link rel="stylesheet" href="../../css/SeniorMember.css">
+<script>
+    $(function () {
+        var is = Smember.Is_Select();
+        var url = PostModule + '/view';
+
+        Qrck.get(url, {member_id: is.id}, '', function (data) {
+            $('.incubatorForm').form('load', data);
+
+
+            industry('.industry', data);
+            Ishareholder('.shareholder', data);
+            sales('.sales', data);
+            json('m_type', data);
+            json('m_level', data);
+            json('m_inc_type', data);
+            py_co1_list('.py_co1_list', data);
+            py_co2_list('.py_co2_list', data);
+            platform('.platform', data);
+            //审核 approval
+            $('.table_name_id').val(data.id);
+            $('.member_id').val(data.member_id);
+            $('.username').html(data.username);
+            $('.cstatsu').combobox({
+                width: 200,
+                panelHeight: 100,
+                valueField: 'id',
+                textField: 'text',
+                data: [
+                    {
+                        "id": 1,
+                        "text": "待审核",
+                        "selected": true
+                    }, {
+                        "id": 2,
+                        "text": "审核通过"
+                    }, {
+                        "id": 3,
+                        "text": "退回修改"
+                    }, {
+                        "id": 4,
+                        "text": "条件不符"
+
+                    }
+                ]
+            });
+            $('.Tel_or_Phone').textbox({});
+        });
+
+
+        function industry(select, data) {
+            //遍历行业信息
+            $.each(data.industry, function (k, v) {
+                if (v.industry_id == 8) {
+                    $(select + "Other").val(v.note);
+                }
+                $(select + v.industry_id).attr("checked", true);
+            });
+        }
+
+        /**
+         * 遍历 平台建设情况
+         * @param select
+         * @param data
+         */
+        function platform(select, data) {
+            var tag = '<caption>平台建设情况<br>创新孵化载体公共技术服务平台建设</caption>';
+            tag += '<tr>' +
+                    '<th>公共技术服务平台名称</th>' +
+                    '<th>建设时间</th>' +
+                    '<th>主要功能与作用</th>' +
+                    '<th>总投资(万元)</th>' +
+                    '</tr>';
+            $.each(data.platform, function (k, v) {
+
+                if (v.ptype == 1) {
+                    tag += '<tr>' +
+                            '<td>' + v.name + '</td>' +
+                            '<td>' + v.build_date + '</td>' +
+                            '<td>' + v.note + '</td>' +
+                            '<td>' + v.invest + '</td>' +
+                            '</tr>';
+                }
+
+            });
+            tag += '<tr>' +
+                    '<th>其他服务平台名称</th>' +
+                    '<th>建设时间</th>' +
+                    '<th>主要功能与作用</th>' +
+                    '<th>总投资(万元)</th>' +
+                    '</tr>';
+            $.each(data.platform, function (k, v) {
+
+                if (v.ptype == 2) {
+                    tag += '<tr>' +
+                            '<td>' + v.name + '</td>' +
+                            '<td>' + v.build_date + '</td>' +
+                            '<td>' + v.note + '</td>' +
+                            '<td>' + v.invest + '</td>' +
+                            '</tr>';
+                }
+
+            });
+
+            $(select).append(tag);
+        }
+
+        /**
+         * 遍历企业名单1
+         * @param select
+         * @param data
+         */
+        function py_co1_list(select, data) {
+            var split = data.py_co1_list;
+            var json = $.parseJSON(split);
+            var arr = [];
+            $.each(json, function (k, v) {
+                arr[k] = v;
+            });
+            $(select).html(arr.join('<br>'));
+        }
+
+        /**
+         * 遍历企业名单2
+         * @param select
+         * @param data
+         */
+        function py_co2_list(select, data) {
+            var split = data.py_co2_list;
+            var json = $.parseJSON(split);
+            var arr = [];
+            $.each(json, function (k, v) {
+                arr[k] = v;
+            });
+            $(select).html(arr.join('<br>'));
+        }
+
+        /**
+         * 判断 是否 值
+         * @param select
+         * @param Data
+         * @constructor
+         */
+        function If(select, Data) {
+            if (Data[select]) {
+                if (Data[select] == 1) {
+                    $('.' + select).html('有');
+                } else if (Data[select] == 2) {
+                    $('.' + select).html('无');
+                }
+            }
+        }
+
+        /**
+         * 遍历 多项选择
+         * @param select
+         * @param Data
+         */
+        function json(select, Data) {
+            var data = (Data[select] != null) ? Data[select] : '';
+            if (data.length > 0 && data != null) {
+                var json = $.parseJSON(data);
+                var other = 0;
+                if (json != null) {
+                    $.each(json, function (k, v) {
+                        if (v == 'other') {
+                            other = k;
+                            $('.' + select + 'other').prop("checked", 'checked');
+                        } else if (other != 0) {
+                            $('.' + select + "Other").val(v);
+                        } else {
+                            $('.' + select + v).prop("checked", 'checked');
+                        }
+                    });
+                }
+            }
+        }
+
+
+        /**
+         * 遍历股东构成
+         * @param select
+         * @param data
+         */
+        function Ishareholder(select, data) {
+            var targ = null;
+            targ += "<caption>股东构成</caption>" +
+                    "<tr> " +
+                    "<th>股东名称</th>" +
+                    "<th>股权比列</th> " +
+                    "<th>出资方式</th> " +
+                    "</tr>";
+            $.each(data.shareholder, function (k, v) {
+
+                targ += "<tr>";
+                $.each(v, function (kk, vv) {
+
+                    if (kk != 'school' && kk != 'education' && kk != 'workcond' && kk != 'investment') {
+                        targ += "<td>" + vv + "</td>";
+                    }
+                });
+                targ += "</tr>";
+            });
+            $(select).html(targ);
+
+        }
+
+        /**
+         * 遍历 销售收入
+         * @param select
+         * @param data
+         */
+        function sales(select, data) {
+            if (data.sales) {
+                var salestarg = '<caption>销售收入概况<br>(系统自动判断)</caption>';
+                $.each(data.sales, function (k, v) {
+                    salestarg += '<tr>';
+
+                    salestarg += '<th>' + v.year + '年度-销售收入(万元)</th>';
+                    salestarg += '<td>' + v.income + '</td>';
+
+                    salestarg += '<th>净利润(万元)</th>';
+                    salestarg += '<td>' + v.profits + '</td>';
+
+                    salestarg += '<th>纳税金额(万元)</th>';
+                    salestarg += '<td>' + v.tax + '</td>';
+
+                    salestarg += '</tr>'
+
+                });    //profits    tax
+            } else {
+                var salestarg = '<tr>';
+
+                salestarg += '<th>还没有数据!</th>';
+
+                salestarg += '</tr>'
+            }
+            $(select).html(salestarg);
+        }
+
+
+    });
+</script>
+<form class="incubatorForm" method="post">
+    <table class="editForm col-6">
+        <caption>孵化器-基本情况</caption>
+        <tr>
+            <th>运营机构名称</th>
+            <td>
+                <input type="text" name="name" readOnly="true">
+            </td>
+
+            <th>行政主管单位</th>
+            <td>
+                <input type="text" name="unit" readOnly="true">
+            </td>
+
+            <th>认定时间</th>
+            <td>
+                <input type="text" name="acc_time" readOnly="true">
+            </td>
+        </tr>
+        <tr>
+            <th>注册资本(万元)</th>
+            <td><input type="text" name="reg_capital" readOnly="true"></td>
+
+            <th>实缴资本(万元)</th>
+            <td><input type="text" name="act_capital" readOnly="true"></td>
+
+            <th>注册时间</th>
+            <td><input type="text" name="reg_date" readOnly="true"></td>
+        </tr>
+        <tr>
+            <th>通讯地址</th>
+            <td><input type="text" name="work_address" readOnly="true"></td>
+
+            <th>法定代表人</th>
+            <td><input type="text" name="legal_rep" readOnly="true"></td>
+
+            <th>联系电话</th>
+            <td><input type="text" name="mobile" readOnly="true"></td>
+        </tr>
+        <tr>
+            <th>电子邮箱</th>
+            <td><input type="text" name="email" readOnly="true"></td>
+
+            <th>联系人</th>
+            <td><input type="text" name="link_name" readOnly="true"></td>
+
+            <th>电子邮箱</th>
+            <td><input type="text" name="link_email" readOnly="true"></td>
+        </tr>
+        <tr>
+            <th>移动电话</th>
+            <td><input type="text" name="link_mobile" readOnly="true"></td>
+
+            <th>传真号码</th>
+            <td><input type="text" name="link_fax" readOnly="true"></td>
+
+            <th>营业执照号码</th>
+            <td><input type="text" name="bl_num" readOnly="true"></td>
+
+        </tr>
+        <tr>
+            <th>税务登记证号码</th>
+            <td><input type="text" name="rc_num" readOnly="true"></td>
+
+            <th>统一社会信用代码</th>
+            <td><input type="text" name="code" readOnly="true"></td>
+
+            <th>经济性质</th>
+            <td class="m_type">
+                <input type="checkbox" disabled="disabled" class="m_type1" name="m_type[]">事业单位
+                <input type="checkbox" disabled="disabled" class="m_type2" name="m_type[]">企业
+                <input type="checkbox" disabled="disabled" class="m_type3" name="m_type[]">民办非企业法人
+                <input type="checkbox" disabled="disabled" class="m_typeother" name="m_type[]">其它
+                <input type="text" class="m_typeOhter" name="m_type[]" readOnly="true">
+            </td>
+        </tr>
+        <tr>
+            <th>创新孵化载体级别</th>
+            <td class="m_level" colspan="5">
+                <input type="checkbox" disabled="disabled" class="m_level1" name="m_level[]">国家级
+                <input type="checkbox" disabled="disabled" class="m_level2" name="m_level[]">省级
+                <input type="checkbox" disabled="disabled" class="m_level3" name="m_level[]">市级
+                <input type="checkbox" disabled="disabled" class="m_level4" name="m_level[]">区级
+                <input type="checkbox" disabled="disabled" class="m_levelother" name="m_level[]">其它:
+                <input type="text" class="m_levelOther" name="m_levelOther" readOnly="true">
+
+            </td>
+        </tr>
+        <tr>
+            <th>创新孵化载体类型</th>
+            <td class="m_inc_type" colspan="5">
+                <input type="checkbox" disabled="disabled" class="m_inc_type1" name="m_inc_type[]">创业苗圃
+                <input type="checkbox" disabled="disabled" class="m_inc_type2" name="m_inc_type[]">综合孵化器
+                <input type="checkbox" disabled="disabled" class="m_inc_type3" name="m_inc_type[]">专业孵化器
+                <input type="checkbox" disabled="disabled" class="m_inc_type4" name="m_inc_type[]">加速器
+            </td>
+        </tr>
+        <tr>
+            <th>孵化器所属领域<br>(专业孵化器填写)</th>
+            <td class="industry" colspan="5">
+                <input type="checkbox" disabled="disabled" class="industry1" name="m_inc_type[]">新一代信息产业
+                <input type="checkbox" disabled="disabled" class="industry2" name="m_inc_type[]">电子核心基础产业
+                <input type="checkbox" disabled="disabled" class="industry3" name="m_inc_type[]">节能环保产业
+                <input type="checkbox" disabled="disabled" class="industry4" name="m_inc_type[]">生物医药产业
+                <input type="checkbox" disabled="disabled" class="industry5" name="m_inc_type[]">生物医学工程
+                <input type="checkbox" disabled="disabled" class="industry6" name="m_inc_type[]">高端装备制造产业
+                <input type="checkbox" disabled="disabled" class="industry7" name="m_inc_type[]">高端软件和新兴信息服务产业<br>
+                <input type="checkbox" disabled="disabled" class="industry8" name="m_inc_type[]">其他:
+                <input type="text" class="industryOther" name="industryOther" readOnly="true">
+            </td>
+        </tr>
+
+    </table>
+    <table class="shareholder editForm col-6"></table>
+    <table class="editForm col-6">
+        <caption>场地面积</caption>
+        <tr>
+            <th>孵化场地面积(万平方米)</th>
+            <td><input type="text" name="area1" readOnly="true"></td>
+
+            <th>共享区间和公共服务场地面积(万平方米)</th>
+            <td><input type="text" name="area2" readOnly="true"></td>
+
+            <th>共享区间和公共服务设施面积占孵化面积比例(%)</th>
+            <td><input type="text" name="area3" readOnly="true"></td>
+        </tr>
+        <tr>
+            <th>入驻企业租用面积(万平方米)</th>
+            <td><input type="text" name="area4" readOnly="true"></td>
+
+            <th>入驻企业租用面积占载体可出租面积比例(%)</th>
+            <td><input type="text" name="area5" readOnly="true"></td>
+
+            <th></th>
+            <td></td>
+        </tr>
+    </table>
+    <table class="editForm col-6">
+        <caption>运营机构人员情况<br>(不含无业人员)</caption>
+        <tr>
+            <th>运营机构服务人员总数(人)</th>
+            <td><input type="text" name="p_total" readOnly="true"></td>
+
+            <th>留学归国人员数(人)</th>
+            <td><input type="text" name="p_n2" readOnly="true"></td>
+
+            <th>获得科技企业孵化器从业人员资格证书人数(人)</th>
+            <td><input type="text" name="p_n1" readOnly="true"></td>
+        </tr>
+        <tr>
+            <th>中级以上职称(人)</th>
+            <td><input type="text" name="p_n3" readOnly="true"></td>
+
+            <th>专业技术人员(人)</th>
+            <td><input type="text" name="p_n4" readOnly="true"></td>
+
+            <th>大专以上学历人员数(人)</th>
+            <td><input type="text" name="p_n5" readOnly="true"></td>
+        </tr>
+        <tr>
+            <th>大专以上学历人员占管理人员总数比例</th>
+            <td><input type="text" name="p_n6" readOnly="true"></td>
+
+            <th>房租价格<br>(元/平方米.月)</th>
+            <td><input type="text" name="rent_price" readOnly="true"></td>
+
+            <th>物管费<br>(元/平方米.月)</th>
+            <td><input type="text" name="tube_fee" readOnly="true"></td>
+        </tr>
+        <tr>
+            <th>上年度孵化器总收入(万元)</th>
+            <td><input type="text" name="income1" readOnly="true"></td>
+
+            <th>本年度孵化器总收入(万元)</th>
+            <td><input type="text" name="income2" readOnly="true"></td>
+            <th></th>
+            <td></td>
+        </tr>
+    </table>
+    <table class="editForm col-6">
+        <caption>孵化培育情况</caption>
+        <tr>
+            <th>上年度虚拟孵化企业数量(家)</th>
+            <td><input type="text" name="py_co1" readOnly="true"></td>
+
+            <th>企业名单</th>
+            <td class="py_co1_list"></td>
+
+            <th>上年度培育上市挂牌企业数量(家)</th>
+            <td><input type="text" name="py_co2" readOnly="true"></td>
+        </tr>
+        <tr>
+            <th>企业名单</th>
+            <td class="py_co2_list"></td>
+
+            <th>上年度培育销售收入首次突破1000万元企业数量(家)</th>
+            <td><input type="text" name="py_co3" readOnly="true"></td>
+
+            <th>上年度入驻企业平均销售收入(万元)</th>
+            <td><input type="text" name="py_co4" readOnly="true"></td>
+        </tr>
+        <tr>
+            <th>上年度入驻企业获得风险投资数量(家)</th>
+            <td><input type="text" name="py_co5" readOnly="true"></td>
+
+            <th>上年度入驻企业纳税金额(万元)</th>
+            <td><input type="text" name="py_co6" readOnly="true"></td>
+
+
+            <th>上年度新增入驻企业数量(家)</th>
+            <td><input type="text" name="py_co7" readOnly="true"></td>
+        </tr>
+        <tr>
+            <th>获得风险投资金额(万元)</th>
+            <td><input type="text" name="py_co8" readOnly="true"></td>
+
+            <th>创新孵化载体税收金额(万元)</th>
+            <td><input type="text" name="py_co9" readOnly="true"></td>
+
+            <th>服务收入金额(万元)</th>
+            <td><input type="text" name="py_co10" readOnly="true"></td>
+        </tr>
+    </table>
+    <table class="editForm col-6">
+        <caption>招商引资情况</caption>
+        <tr>
+            <th>招商引资数量(家)</th>
+            <td><input type="text" name="py_co11" readOnly="true"></td>
+
+            <th>招商引资金额(万元)</th>
+            <td><input type="text" name="py_co12" readOnly="true"></td>
+        </tr>
+    </table>
+    <table class="editForm col-6">
+        <caption>创新孵化载体投资规模</caption>
+        <tr>
+            <th>孵化资金总额(万元)</th>
+            <td><input type="text" name="py_co13" readOnly="true"></td>
+
+            <th>投资企业数量(家)</th>
+            <td><input type="text" name="py_co14" readOnly="true"></td>
+
+            <th>已投资金额(万元)</th>
+            <td><input type="text" name="py_co15" readOnly="true"></td>
+        </tr>
+    </table>
+    <table class="editForm col-6">
+        <caption>入驻创新创业企业知识产权情况</caption>
+        <tr>
+            <th>专利申请总量</th>
+            <td><input type="text" name="zh1" readOnly="true"></td>
+
+            <th>专利授权总量</th>
+            <td><input type="text" name="zh2" readOnly="true"></td>
+
+            <th>发明专利授权量</th>
+            <td><input type="text" name="zh3" readOnly="true"></td>
+        </tr>
+        <tr>
+            <th>实用新型获得数</th>
+            <td><input type="text" name="zh4" readOnly="true"></td>
+
+            <th>外观设计授权量</th>
+            <td><input type="text" name="zh5" readOnly="true"></td>
+
+            <th>商标注册数</th>
+            <td><input type="text" name="zh6" readOnly="true"></td>
+        </tr>
+        <tr>
+            <th>软件著作登记数</th>
+            <td><input type="text" name="zh7" readOnly="true"></td>
+
+            <th>国际标准数</th>
+            <td><input type="text" name="zh8" readOnly="true"></td>
+
+            <th>国家标准数</th>
+            <td><input type="text" name="zh9" readOnly="true"></td>
+        </tr>
+        <tr>
+            <th>行业标准数</th>
+            <td><input type="text" name="zh10" readOnly="true"></td>
+
+            <th>集成电路布图设计专有权获得量</th>
+            <td><input type="text" name="zh11" readOnly="true"></td>
+
+            <th>植物新品种权数</th>
+            <td><input type="text" name="zh12" readOnly="true"></td>
+        </tr>
+        <tr>
+            <th>上年度入驻企业新增知识产权数</th>
+            <td><input type="text" name="zh13" readOnly="true"></td>
+
+            <th>&nbsp;</th>
+            <td>&nbsp;</td>
+
+            <th>&nbsp;</th>
+            <td>&nbsp;</td>
+
+        </tr>
+    </table>
+    <table class="editForm col-6 platform"></table>
+    <table class="editForm">
+        <tr>
+            <th width="5%">运营机构简介</th>
+            <td><input type="text" name="note" readOnly="true"></td>
+        </tr>
+    </table>
+</form>
+<form class="SeniorApprovalForm">
+    <table class="editForm col-6">
+        <input type="text" hidden="hidden" name="ctable" value="bs_senior_service">
+        <input type="text" hidden="hidden" name="cid" class="table_name_id">
+        <input type="text" hidden="hidden" name="member_id" class="member_id">
+        <caption>会员审核</caption>
+        <tr>
+            <th width="5%">审批</th>
+            <td colspan="2"><select class="cstatsu" name="cstatus"></select></td>
+        </tr>
+        <tr>
+            <th>审批意见</th>
+            <td colspan="2"><textarea class="textarea" name="reason"></textarea></td>
+        </tr>
+        <tr>
+            <th>审核人</th>
+            <th class="username" style="text-align: left"></th>
+            <th style="text-align: left">联系电话:<input type="text" class="Tel_or_Phone" name="tel"></th>
+        </tr>
+    </table>
+</form>

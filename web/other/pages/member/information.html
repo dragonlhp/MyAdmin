@@ -1,0 +1,86 @@
+<!--会员基本信息表-->
+<form class="information" method="post">
+    <table class="editForm">
+
+        <tr>
+            <th>
+                <label>登录名:</label>
+            </th>
+            <td>
+                <input class="easyui-textbox" data-options="disabled:true" name="login_name">
+            </td>
+        </tr>
+
+        <tr>
+            <th>
+                <label>昵称:</label>
+            </th>
+            <td>
+                <input class="easyui-textbox" name="nick_name">
+            </td>
+        </tr>
+
+        <tr>
+            <th>
+                <label>用户类型:</label>
+            </th>
+            <td>
+                <input class="mtype" data-options="disabled:true" name="mtype">
+            </td>
+        </tr>
+
+        <tr>
+            <th>
+                <label>电子邮箱:</label>
+            </th>
+            <td>
+                <input class="easyui-textbox" name="email">
+            </td>
+        </tr>
+
+        <tr>
+            <th>
+                <label>邮箱状态:</label>
+            </th>
+            <td>
+                <input class="email" name="email_status">
+            </td>
+        </tr>
+
+        <tr>
+            <th>
+                <label>用户级别:</label>
+            </th>
+            <td>
+                <input class="level" data-options="disabled:true" name="level">
+            </td>
+        </tr>
+
+        <tr>
+            <th>
+                <label>状态:</label>
+            </th>
+            <td>
+                <input class="Status" name="status">
+            </td>
+        </tr>
+
+        <tr>
+            <td colspan="2" class="submitBox">
+                <a href="javascript:void(0)"
+                   onclick="member.updateForm('.information')" class="easyui-linkbutton saveButton"
+                   data-options="iconCls:'icon-save'">提交</a>
+                <a href="javascript:void(0)"
+                   onclick="member.clearForm('.information')" class="easyui-linkbutton saveButton"
+                   data-options="iconCls:'icon-remove'">清空</a>
+            </td>
+        </tr>
+    </table>
+</form>
+<script>
+    member.getLan();
+    member.getStatus();
+    member.getLevel();
+    member.getEmail();
+    member.getMtype();
+</script>

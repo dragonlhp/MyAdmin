@@ -1,0 +1,85 @@
+
+<!--文章管理页面-->
+<table id="categoryGrid"></table>
+
+<div id="categoryToolbar" style="height: 40px; line-height: 40px">
+    <a href="javascript:void(0)" onclick="OptionCate.AddOpen()" class="easyui-linkbutton"
+       data-options="iconCls:'icon-add',plain:true">添加</a>
+    <a href="javascript:void(0)" onclick="OptionCate.UpOpen()" class="easyui-linkbutton"
+       data-options="iconCls:'icon-edit',plain:true">修改</a>
+    <a href="javascript:void(0)" onclick="OptionCate.Delete()" class="easyui-linkbutton"
+       data-options="iconCls:'icon-close',plain:true">删除</a>
+    <a href="javascript:void(0)" onclick="OptionCate.Reload()" class="easyui-linkbutton"
+       data-options="iconCls:'icon-reload',plain:true">刷新</a>
+
+</div>
+<div class="AddDialog"></div>
+<div class="UpDialog"></div>
+<div id="categoryDiaLog">
+    <form id="categoryForm" method="post" hidden="hidden">
+        <table class="editForm">
+            <tr>
+                <th>
+                    <label>父级栏目:</label>
+                </th>
+                <td>
+                    <input class="fid" name="pid">
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    <label>栏目名称:</label></th>
+                <td>
+                    <input class="easyui-textbox" name="name">
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    <lable>栏目类别:</lable>
+                </th>
+                <td>
+                    <input class="showtype" name="showtype">
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    <lable>栏目地址:</lable>
+                </th>
+                <td>
+                    <input class="easyui-textbox" name="url">
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    <label>模块:</label></th>
+                <td><input class="module" name="module">
+
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    <lable>栏目描述:</lable>
+                </th>
+                <td>
+                    <input class="easyui-textbox" name="descriptions"> </input>
+                </td>
+            </tr>
+        </table>
+    </form>
+</div>
+
+<script type="text/javascript" src="../../scripts/cms/category.js"></script>
+<!--<script type="text/javascript" src="../../scripts/cms/CategoryList.js"></script>-->
+<script>
+    OptionCate.getLan();
+    OptionCate.getModule();
+    OptionCate.getStatus();
+    OptionCate.getSelectTree('.fid');
+    OptionCate.Showtype('.showtype');
+    $('.easyui-textbox').textbox({
+        width: 200
+    });
+    $('.easyui-datebox').datebox({
+        width: 200
+    });
+</script>

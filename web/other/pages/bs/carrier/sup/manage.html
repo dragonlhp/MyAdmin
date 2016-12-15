@@ -1,0 +1,175 @@
+<table id="carriersupGrid"></table>
+<div id="carriersupToolbar" style="height: 40px; line-height: 40px">
+
+    <a href="javascript:void(0)" onclick="Option.AddOpen()" class="easyui-linkbutton"
+       data-options="iconCls:'icon-add',plain:true">添加</a>
+    <a href="javascript:void(0)" onclick="UpOpen()" class="easyui-linkbutton"
+       data-options="iconCls:'icon-edit',plain:true">修改</a>
+    <a href="javascript:void(0)" onclick="Option.Delete()" class="easyui-linkbutton"
+       data-options="iconCls:'icon-close',plain:true">删除</a>
+    <a href="javascript:void(0)" onclick="Option.Reload()" class="easyui-linkbutton"
+       data-options="iconCls:'icon-reload',plain:true">刷新</a>
+
+    <a href="javascript:void(0)" onclick="Option.setStatus(2)" class="easyui-linkbutton"
+       data-options="iconCls:'icon-reload',plain:true">发布</a>
+    <a href="javascript:void(0)" onclick="Option.setStatus(1)" class="easyui-linkbutton"
+       data-options="iconCls:'icon-reload',plain:true">取消发布</a>
+
+    <form id="carriersupSearchForm" style="float: right">
+        <select name="status" class="StatusSearch"></select>
+        <input name="keyword" class="TextSearch">
+    </form>
+
+</div>
+<div id="carriersupDiaLog">
+    <form id="carriersupForm" method="post"  hidden="hidden">
+        <table class="editForm">
+            <tr>
+                <th>
+                    <label>语言:</label>
+                </th>
+                <td>
+                    <input class="lan" name="lan">
+                </td>
+
+                <th>
+                    <!--<label>状态:</label>-->
+                </th>
+                <td>
+                    <!--<input class="status" name="status">-->
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    <label>孵化器企业:</label>
+                </th>
+                <td>
+                    <input hidden="hidden" class="member_name" name="member_id">
+                    <input class="incubator_id" name="incubator_id">
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    <label>地址:</label>
+                </th>
+                <td>
+                    <input class="easyui-textbox" name="address">
+                </td>
+            </tr>
+
+            <tr>
+                <th>
+                    <label>载体面积(㎡):</label>
+                </th>
+                <td>
+                    <input class="easyui-textbox" name="carrier_area">
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    <label>可租面积(㎡):</label>
+                </th>
+                <td>
+                    <input class="easyui-textbox" name="rent_area">
+                </td>
+            </tr>
+
+            <tr>
+                <th>
+                    <label>房租价格(元):</label>
+                </th>
+                <td>
+                    <input class="easyui-textbox" name="rental">
+                </td>
+            </tr>
+
+
+            <tr>
+                <th>
+                    <label>物管费(元):</label>
+                </th>
+                <td>
+                    <input class="easyui-textbox" name="property">
+                </td>
+            </tr>
+
+            <tr>
+                <th>
+                    <label>载体类型:</label>
+                </th>
+                <td>
+                    <input class="carrier_type_id" name="carrier_type_id">
+                </td>
+            </tr>
+
+            <tr>
+                <th>
+                    <label>优惠信息:</label>
+                </td>
+                <td>
+                    <input class="easyui-textbox" name="coupon">
+                </td>
+            </tr>
+
+            <tr>
+                <th>
+                    <label>备注:</label>
+                </th>
+                <td>
+                    <input class="easyui-textbox" name="note">
+                </td>
+            </tr>
+
+
+            <!--固定项-->
+            <tr>
+                <th>
+                    <label>联系人:</label>
+                </th>
+                <td>
+                    <input class="easyui-textbox" name="link_name">
+                </td>
+            </tr>
+
+            <tr>
+                <th>
+                    <label>联系电话:</label>
+                </th>
+                <td>
+                    <input class="easyui-textbox" name="link_tel">
+                </td>
+            </tr>
+        </table>
+    </form>
+</div>
+<!--加载js-->
+
+<script type="text/javascript" src="../../scripts/bs/carrier/sup.js"></script>
+<script type="text/javascript">
+    Option.TextSearch('.TextSearch');
+    Option.getSelectStatus('.StatusSearch');
+
+    Option.getComboBox('.carrier_type_id', 'bs/carrierreq/getbsbdatatype?type=2'); //获取孵化器列表
+    Option.getComboBox('.incubator_id', 'bs/carriersup/getincubator', function (getData) {
+        //member_name
+        $('.member_name').val(getData.id);
+    });
+
+    function UpOpen() {
+        Option.UpOpen();
+
+
+//        var getids = $(DataGrid).datagrid('getChecked');
+//        var row = $(DataGrid).datagrid('getSelected');
+//        var is = getids ? getids[0] : null;
+//        is = is ? is : row;
+//        dump(is);
+
+        var is= Option.Is_Select();
+        if (is.owner_type == 2)
+            $('.incubator_id').combobox({
+                disabled: true
+            });
+    }
+</script>
+<!--<script type="text/javascript" src="../../scripts/bs/bs.js"></script>-->

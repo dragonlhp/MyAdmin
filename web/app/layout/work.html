@@ -1,0 +1,16 @@
+<script type="text/javascript">
+    $(function(){
+        var menus=Qrck.get("admin/user/menus?pid="+Qrck.menusId.welcome+"&t=2",{},"",function(res){
+            var mc="";
+            if(res.length >0){
+                for(var i=0;i<res.length;i++){
+
+                     mc+='<div class="portal"><a href="../../'+res[i]['url']+'"><p>'+res[i]['name']+'</p></a></div>';
+                }
+                $("#main_icon_Links").append(mc);
+            }
+        });
+    })
+</script>
+<div id="main_icon_Links">
+</div>

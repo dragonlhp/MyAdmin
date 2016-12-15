@@ -1,0 +1,90 @@
+<!--更新-->
+<link rel="stylesheet" href="../../css/edit.css">
+
+
+<div class="easyui-tabs MemberInformation">
+
+</div>
+
+
+<script>
+    $(function () {
+
+
+        //获取编辑数据
+        var upid = $(DataGrid).datagrid('getSelected');
+        if (upid == null) {
+            $.messager.confirm("提示", "编辑错误,请重新选择！", function () {
+                removePanel();
+            });
+
+        } else {
+            var DataID = upid.id;
+
+
+            $.ajax({
+                type: 'get',
+                url: Qrck.baseApiUrl + PostModule + '/view?id=' + DataID,
+                success: function (data) {
+                    Membertabs('基本信息', 0, '../member/information.html', function () {
+                        $('.information').form('load', data);
+                        EasyuiBox();
+
+                    });
+                    var hrefs = [
+                        'company',
+                        'incubator',
+                        'service',
+                        'person'
+                    ];
+
+                    Membertabs('设置选项', 1, '../member/' + hrefs[data.mtype - 1] + '.html', function () {
+                        Qrck.get('member/member' + hrefs[data.mtype - 1] + '/get',
+                                {member_id: DataID}, '',
+                                function (datas) {
+                                    $('.' + hrefs[data.mtype - 1]).form('load', datas[0]);
+                                });
+
+                        EasyuiBox();
+                    });
+                    Membertabs('会员权限', 2, '../member/access.html', function () {
+
+                        EasyuiBox();
+                    });
+                    Membertabs('重制密码', 3, '../member/repwd.html', function () {
+
+                        EasyuiBox();
+
+
+                    });
+
+                }
+            });
+        }
+    });
+    function Membertabs(title, index, href, fun) {
+        var selected = false;
+        if (index == 0) {
+            selected = true;
+        }
+
+        $('.MemberInformation').tabs('add', {
+            title: title,
+            selected: selected,
+            index: index,
+            href: href,
+            closable: false,
+            onLoad: fun
+        });
+    }
+    function EasyuiBox() {
+        $('.easyui-textbox').textbox({
+            width: 300
+        });
+        $('.easyui-datebox').datebox({
+            width: 200
+        });
+    }
+</script>
+
+

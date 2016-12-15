@@ -1,0 +1,26 @@
+[
+  {
+    "id": "0",
+    "text": "我的文档",
+    "href": "http://www.sucaijiayuan.com/",
+    "icon": "images/sucaijiayuan.png"
+  },
+  {
+    "id": "1",
+    "text": "我的电脑",
+    "href": "http://www.sucaijiayuan.com/",
+    "icon": "images/computer.png"
+  },
+  {
+    "id": "2",
+    "text": "回收站",
+    "href": "http://m.caidianqu.com/",
+    "icon": "images/bin.png"
+  },
+  {
+    "id": "3",
+    "text": "网络连接",
+    "href": "http://www.sucaijiayuan.com/demo/20140929-2/",
+    "icon": "images/dns.png"
+  }
+]

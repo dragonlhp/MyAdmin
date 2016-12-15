@@ -1,0 +1,26 @@
+<table id="admin_setting_grid"></table>
+<!-- 创建任务表单 -->
+<style>
+    .text {
+        border: 1px solid #9e9e9e;
+    }
+</style>
+<div id="admin_setting_form" class="hide">
+    <form id="admin_setting_form_box" method="post">
+        <table class="fromstyle">
+            <tr>
+                <th>名称：</th>
+                <td><input id="admin_setting_add_name" type="text" name="name" class="text" /></td>
+            </tr>
+            <tr id="tr">
+                <th>标识：</th>
+                <td><input type="hide" id="admin_setting_code" name="code"></td>
+            </tr>
+            <tr>
+                <th>内容：</th>
+                <td><input type="hide" id="admin_setting_add_vdata" name="vdata"></td>
+            </tr>
+        </table>
+    </form>
+</div>
+<script type="text/javascript" src="../../scripts/admin/setting.js"></script>

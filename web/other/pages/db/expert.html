@@ -1,0 +1,66 @@
+
+ <div  id="db_expert_toolbar" region="north" border="false"  
+                style="border-bottom: 1px solid #ddd; height: 32px; padding: 2px 5px; background: #fafafa;">  
+                <div style="float: left;">  
+                    <a href="javascript:volid(0)" onclick="addBox()" class="easyui-linkbutton" plain="true" icon="icon-add">新增</a>  
+                </div>  
+  
+                <div class="datagrid-btn-separator"></div>  
+                <div style="float: left;">  
+                    <a href="javascript:void(0)" onclick="editStatus(9)" class="easyui-linkbutton" plain="true" icon="icon-remove">删除</a>  
+                </div>  
+  
+                <div class="datagrid-btn-separator"></div>  
+  
+                <div style="float: left;">  
+                    <a href="javascript:void(0)" onclick="editStatus(1)" class="easyui-linkbutton" plain="true" icon="icon-checkmark">启用</a>  
+                </div>  
+  				<div class="datagrid-btn-separator"></div>  
+  				 <div style="float: left;">  
+                    <a href="javascript:void(0)" onclick="editStatus(2)" class="easyui-linkbutton" plain="true" icon="icon-close">禁用</a>  
+                </div>  
+                <div class="datagrid-btn-separator"></div>  
+  				 <div style="float: left;">  
+                    <a href="javascript:void(0)" onclick="reloadData()" class="easyui-linkbutton" plain="true" icon="icon-reload">刷新</a>  
+                </div>  
+
+                <div id="tb" style="float: right;">  
+				    <select name="status" class="db_expert_search_status"></select>
+				    <input name="keyword" class="db_expert_search_keyword">
+                </div>  
+  
+</div> 
+<table id="db_expert_grid"></table>
+<!-- 创建任务表单 -->
+<div id="db_expert_form" class="hide">
+	<form id="db_expert_form_box" method="post">
+	<table class="fromstyle">
+		<tr>
+			<th>类型：</th>
+			<td id="db_export_form_ctype">
+				<span class="radioSpan">
+                	<label><input type="radio" name="ctype" value="1" checked="checked" />国内</label>&nbsp;&nbsp;&nbsp;&nbsp;
+                	<label><input type="radio" name="ctype" value="2" />国外</label>
+            </span>
+			</td>
+		</tr>
+		<tr>
+			<th>单位名称：</th>
+			<td><input type="text" id="db_export_form_org_name" name="org_name" class="text" /></td>
+		</tr>
+		<tr>
+			<th>专家姓名：</th>
+			<td><input type="text" id="db_export_form_name" name="name" class="text" /></td>
+		</tr>
+		<tr>
+			<th>职务/学历：</th>
+			<td><input type="text" id="db_export_form_position" name="position" class="text"/></td>
+		</tr>
+		<tr>
+			<th>联系电话：</th>
+			<td><input type="text" id="db_export_form_tel" name="tel" class="text"/></td>
+		</tr>
+	</table>
+	</form>
+</div>
+<script type="text/javascript" src="../../scripts/db/expert.js"></script>

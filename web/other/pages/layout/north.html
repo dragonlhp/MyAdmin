@@ -1,0 +1,98 @@
+<script type="text/javascript" src="../../scripts/qrck.js"></script>
+<script>
+$(function(){
+	//
+	set = {
+			changePWD : function(){
+				$("#changePWD").removeClass("hide");
+				$('#changePWD').dialog('open');
+			},
+			saveChange : function(){
+				if( $('#changepwdform').form('validate') ){
+					var url='admin/user/pwd';
+					var parm={oldpwd:$("#old_password").val(),newpwd:$("#password").val()};
+					Qrck.put(url,parm,"",function(){
+							$.messager.alert("提示","修改密码成功!","warning"); 
+							$.cookie('login_name', "",{path:Qrck.cookiePath});
+            				$.cookie('token', "",{path:Qrck.cookiePath});
+            				location.href=Qrck.baseHtmlUrl;
+							//$('#changePWD').dialog('close');
+					},function(){
+							$.messager.alert("提示","修改密码失败，请稍后再试!","warning"); 
+					});
+				}else{
+					$.messager.alert("提示","填写有误!","warning"); 
+				}
+			},
+			logout:function(){
+				$.cookie('login_name', "",{path:Qrck.cookiePath});
+            	$.cookie('token', "",{path:Qrck.cookiePath});
+            	location.href=Qrck.baseHtmlUrl;
+			}
+	}
+	$('#user').menubutton({
+		iconCls: 'icon-man',
+		menu: '#mm-1',
+		plain: false,
+		menuAlign: 'right'
+	});
+
+	//密码修改
+	$('#changePWD').dialog({
+		width : 600,
+		title : '修改密码',
+		closed : true,
+		modal : true,
+		iconCls : 'icon-lock',
+		buttons : [{
+			text : '保存',
+			handler : set.saveChange
+		},{
+			text : '取消',
+			handler : function(){
+				$('#changePWD').dialog('close');
+			}
+		}],
+		onClose : function(){
+			$('#changepwd').form('clear');
+		}
+	});
+	
+	$('#password,#rpwd,#old_password').validatebox({
+		required : true
+	});
+});
+</script>
+
+
+<div class="logo">
+	<img src="../../images/logo.jpg" >
+</div>
+
+<div class="top-menu">
+	<a href="javascript:void(0)" id="user"></a>
+	<div id="mm-1">
+		<div data-options="iconCls:'icon-lock'" onclick="set.changePWD();">修改密码</div>
+		<div class="menu-sep"></div>
+		<div data-options="iconCls:'icon-my-off'" onclick="set.logout();">注销</div>
+	</div>
+</div>
+<!-- 修改密码 -->
+<div id="changePWD" class="hide">
+	<form id="changepwdform">
+	<table class="fromstyle">
+		<tr>
+			<th>老密码：</th>
+			<td><input type="password" id="old_password" name="old_password" class="text"></td>
+		</tr>
+		<tr>
+			<th>新密码：</th>
+			<td><input type="password" id="password" name="password" class="text"></td>
+		</tr>
+		<tr>
+			<th>确认新密码：</th>
+			<td><input type="password" id="rpwd" name="rpwd" class="text" validType="equals['#password']"></td>
+		</tr>
+	</table>
+	</form>
+</div>

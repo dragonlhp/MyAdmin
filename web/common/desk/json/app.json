@@ -1,0 +1,44 @@
+[
+  {
+    "id": "0",
+    "text": "我的文档",
+    "href": "http://www.sucaijiayuan.com/",
+    "icon": "images/sucaijiayuan.png"
+  },
+  {
+    "id": "1",
+    "text": "我的电脑",
+    "href": "http://www.sucaijiayuan.com/",
+    "icon": "images/computer.png"
+  },
+  {
+    "id": "2",
+    "text": "回收站",
+    "href": "http://m.caidianqu.com/",
+    "icon": "images/bin.png"
+  },
+  {
+    "id": "3",
+    "text": "网络连接",
+    "href": "http://www.sucaijiayuan.com/demo/20140929-2/",
+    "icon": "images/dns.png"
+  },
+  {
+    "id": "4",
+    "text": "文章管理",
+    "href": "http://admin.sc.com/web/app/module/article.html",
+    "icon": "images/dns.png"
+  },
+  {
+    "id": "5",
+    "text": "考勤管理",
+    "href": "http://admin.sc.com/web/app/module/attendance.html",
+    "icon": "images/dns.png"
+  },
+  {
+    "id": "6",
+    "text": "友情链接",
+    "href": "http://admin.sc.com/web/app/module/flink.html",
+    "icon": "images/dns.png"
+  }
+]

@@ -1,0 +1,64 @@
+table.editForm {
+    width: 98%;
+    margin: 15px auto;
+    /*height: 1050px;*/
+    border: 1px solid #EEE;
+    border-collapse: collapse;
+    font-size: 12px;
+    padding-bottom: 30px;
+}
+
+table.editForm th, td {
+    line-height: 30px;
+    padding: 0 10px;
+    border: 1px solid #CCC;
+}
+
+table.editForm th {
+    background-color: #F7f7f7;
+    text-align: right;
+}
+
+table.editForm td {
+    width: 16%;
+    text-align: left;
+}
+
+table.editForm input.txt {
+    width: 90%;
+    padding: 3px 5px;
+    line-height: 18px;
+    border: none;
+    background-color: #EEE;
+}
+
+table.editForm td.submitBox {
+    text-align: center;
+    padding: 30px;
+}
+
+.col-6 th, td {
+    /*width: 16%;*/
+}
+
+.col-8 th, td {
+    /*width: 9%;*/
+}
+
+table.editForm input {
+    line-height: 100%;
+    padding: 0;
+    margin: 0;
+    border: 0;
+}
+
+.textarea {
+    height: 150px;
+    width: 95%;
+    resize: none;
+    border: 1px solid #EEE;
+    border-collapse: collapse;
+    padding:20px;
+
+}
+

@@ -1,0 +1,98 @@
+<!--服务企业会员表-->
+<form class="service" method="post">
+    <table class="editForm">
+
+        <!--<tr>-->
+            <!--<th>-->
+                <!--<label>用户关联ID:</label>-->
+            <!--</th>-->
+            <!--<td>-->
+                <!--<input class="member" name="member">-->
+                <!--<input hidden="hidden" class="member_id" name="member_id">-->
+            <!--</td>-->
+        <!--</tr>-->
+
+        <tr>
+            <th>
+                <label>单位名称:</label>
+            </th>
+            <td>
+                <input class="easyui-textbox" name="name">
+            </td>
+        </tr>
+
+        <tr>
+            <th>
+                <label>联系人:</label>
+            </th>
+            <td>
+                <input class="easyui-textbox" name="link_name">
+            </td>
+        </tr>
+
+        <tr>
+            <th>
+                <label>联系人手机号码:</label>
+            </th>
+            <td>
+                <input class="easyui-textbox" name="link_mobile">
+            </td>
+        </tr>
+
+        <tr>
+            <th>
+                <label>联系人办公电话:</label>
+            </th>
+            <td>
+                <input class="easyui-textbox" name="link_tel">
+            </td>
+        </tr>
+
+        <tr>
+            <th>
+                <label>负责人:</label>
+            </th>
+            <td>
+                <input class="easyui-textbox" name="co_name">
+            </td>
+        </tr>
+
+        <tr>
+            <th>
+                <label>负责人手机号码:</label>
+            </th>
+            <td>
+                <input class="easyui-textbox" name="co_mobile">
+            </td>
+        </tr>
+
+        <tr>
+            <th>
+                <label>负责人办公室电话:</label>
+            </th>
+            <td>
+                <input class="easyui-textbox" name="co_tel">
+            </td>
+        </tr>
+
+        <tr>
+            <td colspan="2" class="submitBox">
+                <a href="javascript:void(0)"
+                   onclick="member.MemberForm('.service','member/memberservice/save')"
+                   class="easyui-linkbutton saveButton"
+                   data-options="iconCls:'icon-save'">提交</a>
+                <a href="javascript:void(0)"
+                   onclick="member.clearForm('.service')" class="easyui-linkbutton saveButton"
+                   data-options="iconCls:'icon-remove'">清空</a>
+            </td>
+        </tr>
+    </table>
+</form>
+<script>
+    var upid = $(DataGrid).datagrid('getSelected');
+    $('.member').textbox({
+        width: 300,
+        value: upid.login_name,
+        disabled: true
+    });
+</script>

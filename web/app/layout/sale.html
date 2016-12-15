@@ -1,0 +1,45 @@
+<script type="text/javascript">
+    $(function(){
+        $('#west_admin_manage').accordion({
+            border: false,
+            animate: true,
+            multiple: false,
+            selected: 0
+        });
+
+        var menus=Qrck.get("admin/user/menus?pid="+Qrck.menusId.sale_sup+"&t=2",{},"",function(res){
+            var mc="";
+            if(res.length >0){
+                for(var i=0;i<res.length;i++){
+                    mc+=' <li><a onclick="addTab(\''+res[i]['name']+'\',\'../../'+res[i]['url']+'\')">'+res[i]['name']+'</a></li>';
+                }
+
+                $("#west_sale_sup .submenu").append(mc);
+                $("#west_sale_sup").show();
+            }
+        });
+        var menus2=Qrck.get("admin/user/menus?pid="+Qrck.menusId.sale_req+"&t=2",{},"",function(res){
+            var mc="";
+            if(res.length >0){
+                for(var i=0;i<res.length;i++){
+                    mc+=' <li><a onclick="addTab(\''+res[i]['name']+'\',\'../../'+res[i]['url']+'\')">'+res[i]['name']+'</a></li>';
+                }
+
+                $("#west_sale_req .submenu").append(mc);
+                $("#west_sale_req").show();
+            }
+        });
+        $("#west_admin_manage .submenu li").eq(0).find("a").click();
+    })
+</script>
+<div id="west_admin_manage" class="west_sale_content">
+    <div title="我要查询" data-options="iconCls:'icon-my-task',cls:'menu_panel',border:false" style="display: none;" id="west_sale_sup">
+        <ul class="submenu">
+        </ul>
+    </div>
+    <div title="我要发布" data-options="iconCls:'icon-my-task',cls:'menu_panel',border:false" style="display: none;" id="west_sale_req">
+        <ul class="submenu">
+
+        </ul>
+    </div>
+</div>

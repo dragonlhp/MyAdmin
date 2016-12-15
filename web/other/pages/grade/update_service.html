@@ -1,0 +1,667 @@
+<!--高级会员信息表-机构-->
+<link rel="stylesheet" href="../../css/SeniorMember.css">
+<script>
+    $(function () {
+        var is = Smember.Is_Select();
+        var url = PostModule + '/view';
+
+        Qrck.get(url, {member_id: is.id}, '', function (data) {
+            $('.serviceForm').form('load', data);
+
+            //  遍历股东构成 shareholder
+            Sshareholder('.shareholder', data);
+
+
+            //  销售收入 bs_senior_sales
+            //  sales = data.sales;
+            sales('.sales', data);
+
+
+            // 企业资质
+            setQu(data);
+            If('financing_req', data);
+            If('bank_loan', data);
+            If('policies', data);
+            If('com_coo', data);
+            If('it_transfer', data);
+            json('service_type', data);
+            service_content('service_content', data);
+            json('financing_purposes', data);
+            json('sup_req', data);
+            json('com_coo_oo', data);
+            json('com_coo_type', data);
+
+            //审核 approval
+            $('.table_name_id').val(data.id);
+            $('.member_id').val(data.member_id);
+            $('.username').html(data.username);
+            $('.cstatsu').combobox({
+                width: 200,
+                panelHeight: 100,
+                valueField: 'id',
+                textField: 'text',
+                data: [
+                    {
+                        "id": 1,
+                        "text": "待审核",
+                        "selected": true
+                    }, {
+                        "id": 2,
+                        "text": "审核通过"
+                    }, {
+                        "id": 3,
+                        "text": "退回修改"
+                    }, {
+                        "id": 4,
+                        "text": "条件不符"
+
+                    }
+                ]
+            });
+            $('.Tel_or_Phone').textbox({});
+        });
+
+        function service_content(selelct, data) {
+            //遍历行业信息
+            $.each(data.service_content, function (k, v) {
+                $("." + selelct + v.content_id).attr("checked", true);
+            });
+        }
+
+        function Sshareholder(select, data) {
+            var targ = null;
+            targ += "<caption>股东构成</caption>" +
+                    "<tr> " +
+                    "<th>股东名称</th>" +
+                    "<th>出资额(万元)</th>" +
+                    "<th>股权比列(%)</th> " +
+                    "<th>最高学历</th> " +
+                    "<th>毕业院校</th> " +
+                    "<th>现今是否在大学<br>或科研院所任职</th> " +
+                    "</tr>";
+            if (data.shareholder) {
+                $.each(data.shareholder, function (k, v) {
+                    targ += "<tr>";
+                    $.each(v, function (kk, vv) {
+                        if (kk == "workcond") {
+                            if (vv == 1) {
+                                targ += "<td>是</td>";
+                            } else {
+                                targ += "<td>否</td>";
+                            }
+
+                        } else {
+                            targ += "<td>" + vv + "</td>";
+                        }
+
+                    });
+                    targ += "</tr>";
+                });
+            }
+            $(select).html(targ);
+        }
+
+        function sales(select, data) {
+            var salestarg = '';
+            if (data.sales) {
+                salestarg = '<caption>销售收入概况<br>(系统自动判断)</caption>';
+                $.each(data.sales, function (k, v) {
+                    salestarg += '<tr>';
+
+                    salestarg += '<th>' + v.year + '年度-销售收入(万元)</th>';
+                    salestarg += '<td>' + v.income + '</td>';
+
+                    salestarg += '<th>净利润(万元)</th>';
+                    salestarg += '<td>' + v.profits + '</td>';
+
+                    salestarg += '<th>纳税金额(万元)</th>';
+                    salestarg += '<td>' + v.tax + '</td>';
+
+                    salestarg += '</tr>'
+
+                });    //profits    tax
+            } else {
+                salestarg = '<tr>';
+
+                salestarg += '<th>还没有数据!</th>';
+
+                salestarg += '</tr>'
+            }
+            $(select).html(salestarg);
+        }
+
+        function setQu(Data) {
+            var select = 'qu';
+            for (var i = 1; i <= 7; i++) {
+                if (Data[select + i] == 2) {
+                    $('.' + select + i).prop("checked", 'checked');
+                }
+            }
+        }
+
+        function If(select, Data) {
+            if (Data[select]) {
+                if (Data[select] == 1) {
+                    $('.' + select).html('有');
+                } else if (Data[select] == 2) {
+                    $('.' + select).html('无');
+                }
+            }
+        }
+
+        function json(select, Data) {
+            var data = (Data[select] != null) ? Data[select] : '';
+            if (data.length > 0 && data != null) {
+                var json = $.parseJSON(data);
+                var other = 0;
+                if (json != null) {
+                    $.each(json, function (k, v) {
+                        if (v == 'other') {
+                            other = k;
+                            $('.' + select + 'other').prop("checked", 'checked');
+                        } else if (other != 0) {
+                            $('.' + select + "Other").val(v);
+                        } else {
+                            $('.' + select + v).prop("checked", 'checked');
+                        }
+                    });
+                }
+            }
+        }
+
+    });
+</script>
+<form class="serviceForm" method="post">
+    <table class="editForm col-6">
+        <caption>服务机构-基本信息</caption>
+        <tr>
+            <th>企业名称</th>
+            <td colspan="3">
+                <input type="text" name="name" readOnly="true">
+            </td>
+            <th>承担单位</th>
+            <td>
+                <input type="text" name="unit" readOnly="true">
+            </td>
+        </tr>
+        <tr>
+            <th>注册时间</th>
+            <td>
+                <input type="text" name="reg_date" readOnly="true">
+            </td>
+            <th>统一社会信用代码</th>
+            <td>
+                <input type="text" name="code" readOnly="true">
+            </td>
+
+            <th>注册资金(万元)</th>
+            <td>
+                <input type="text" name="reg_capital" readOnly="true">
+            </td>
+        </tr>
+        <tr>
+            <th>实缴资金(万元)</th>
+            <td>
+                <input type="text" name="act_capital" readOnly="true">
+            </td>
+
+            <th>办公地址</th>
+            <td>
+                <input type="text" name="work_address" readOnly="true">
+            </td>
+            <th>办公面积(平方米)</th>
+            <td><input type="text" name="work_area" readOnly="true"></td>
+        </tr>
+        <tr>
+            <th>企业开户名称</th>
+            <td>
+                <input type="text" name="account_name" readOnly="true">
+            </td>
+
+            <th>开户银行(全称)</th>
+            <td>
+                <input type="text" name="account_bank" readOnly="true">
+            </td>
+
+            <th>银行账号</th>
+            <td>
+                <input type="text" name="account_num" readOnly="true">
+            </td>
+        </tr>
+        <tr>
+            <th>法定代表人</th>
+            <td>
+                <input type="text" name="legal_rep" readOnly="true">
+            </td>
+            <th>(法定代表人)移动电话</th>
+            <td>
+                <input type="text" name="mobile" readOnly="true">
+            </td>
+
+
+            <th>(法定代表人)办公电话</th>
+            <td>
+                <input type="text" name="work_tel" readOnly="true">
+            </td>
+        </tr>
+        <tr>
+            <th>(法定代表人)电子邮箱</th>
+            <td>
+                <input type="text" name="email" readOnly="true">
+            </td>
+
+            <th>联系人</th>
+            <td>
+                <input type="text" name="link_name" readOnly="true">
+            </td>
+            <th>移动电话</th>
+            <td>
+                <input type="text" name="link_mobile" readOnly="true">
+            </td>
+        </tr>
+        <tr>
+
+            <th>办公电话</th>
+            <td>
+                <input type="text" name="link_tel" readOnly="true">
+            </td>
+            <th>QQ</th>
+            <td>
+                <input type="text" name="link_qq" readOnly="true">
+            </td>
+
+            <th>传真</th>
+            <td>
+                <input type="text" name="link_fax" readOnly="true">
+            </td>
+        </tr>
+        <tr>
+            <th>机构类型</th>
+            <td colspan="5">
+                <div class="service_type">
+                    &nbsp;<input type="checkbox" class="service_type1" name="industry1" disabled="disabled"> 中介机构
+                    |&nbsp;<input type="checkbox" class="service_type2" name="industry2" disabled="disabled"> 公共技术平台
+                    |&nbsp;<input type="checkbox" class="service_type3" name="industry3" disabled="disabled"> 服务机构
+
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <th>业务内容</th>
+            <td colspan="5">
+                <div class="service_content">
+                    <input type="checkbox" class="service_content25" name="service_content1"
+                           disabled="disabled"> 知识产权
+
+                    <input type="checkbox" class="service_content26" name="service_content2"
+                           disabled="disabled"> 语言翻译
+
+                    <input type="checkbox" class="service_content27" name="service_content3"
+                           disabled="disabled"> 资产评估
+
+                    <input type="checkbox" class="service_content28" name="service_content4"
+                           disabled="disabled"> 法律服务
+
+                    <input type="checkbox" class="service_content29" name="service_content5"
+                           disabled="disabled"> 人力资源
+
+                    <input type="checkbox" class="service_content30" name="service_content6"
+                           disabled="disabled"> 财务服务
+
+                    <input type="checkbox" class="service_content31" name="service_content7"
+                           disabled="disabled"> 技术转移
+
+                </div>
+            </td>
+        </tr>
+    </table>
+
+    <table class="shareholder editForm col-6"></table>
+
+    <table class="editForm col-6">
+        <caption>公司人员情况</caption>
+        <tr>
+            <th>公司员工总数(人)</th>
+            <td>
+                <input type="text" name="p_total" width="30px" readOnly="true">
+            </td>
+            <th>留学硕士人员(人)</th>
+            <td>
+                <input type="text" name="p_n2" readOnly="true">
+            </td>
+
+            <th>国家千人计划(人)</th>
+            <td>
+                <input type="text" name="p_n3" readOnly="true">
+            </td>
+        </tr>
+        <tr>
+            <th>博士人员(人)</th>
+            <td>
+                <input type="text" name="p_n4" readOnly="true">
+            </td>
+            <th>知名企业骨干人员(人)</th>
+            <td>
+                <input type="text" name="p_n5" readOnly="true">
+            </td>
+            <th>科学院院士(人)</th>
+            <td>
+                <input type="text" name="p_n1" readOnly="true">
+            </td>
+        </tr>
+        <tr>
+            <th colspan="6" style="text-align: center">公司获得知识产权情况(累计)</th>
+        </tr>
+        <tr>
+
+            <th>获得发明专利(项)</th>
+            <td>
+                <input type="text" name="ipright1" readOnly="true">
+            </td>
+
+            <th>获得实用新型专利(项)</th>
+            <td>
+                <input type="text" name="ipright2" readOnly="true">
+            </td>
+
+            <th>获得外观专利(项)</th>
+            <td>
+                <input type="text" name="ipright3" readOnly="true">
+            </td>
+        </tr>
+        <tr>
+            <th>获得软件著作权(项)</th>
+            <td>
+                <input type="text" name="ipright4" readOnly="true">
+            </td>
+            <th>其他：</th>
+            <td colspan="3">
+                <input type="text" name="ipright5" readOnly="true">
+            </td>
+
+        </tr>
+    </table>
+
+    <table class="editForm col-8 sales"></table>
+
+    <table class="editForm col-8">
+        <caption>已获得投融资情况</caption>
+
+        <tr>
+            <th>已获得股权融资</th>
+            <th>时间</th>
+            <td>
+                <input type="text" name="f_equity_date">
+            </td>
+            <th>金额(万元)</th>
+            <td>
+                <input type="text" name="f_equity_total" readOnly="true">
+            </td>
+        </tr>
+
+        <tr>
+            <th>已获得债权融资</th>
+            <th>时间</th>
+            <td>
+                <input type="text" name="f_debt_date" readOnly="true">
+            </td>
+            <th>金额(万元)</th>
+            <td>
+                <input type="text" name="f_debt_total" readOnly="true">
+            </td>
+        </tr>
+        <tr>
+            <th>本年增资扩股情况</th>
+            <th>增加注册资本(万元)</th>
+            <td>
+                <input type="text" name="ot1" readOnly="true">
+            </td>
+            <th>增加股东情况</th>
+            <td>
+                <input type="text" name="ot2" readOnly="true">
+            </td>
+        </tr>
+        <tr>
+            <th>本年固定资产投资情况</th>
+            <td colspan="7">
+                (本年公司技术改造投资，扩大生产线，购置生产设备、办公设备、研发设备等，请写出具体金额)
+
+                <textarea class="textarea" name="ot3" readOnly="true"></textarea>
+            </td>
+        </tr>
+    </table>
+
+    <table class="editForm col-6">
+        <caption>企业资质</caption>
+        <tr>
+            <th>国家高新技术企业</th>
+            <td>
+                <input type="checkbox" class="qu1" name="qu1" onload="getCheckBox('quq')" disabled="disabled">
+            </td>
+            <th>获得时间：</th>
+            <td>
+                <input type="text" name="qu1_date" readOnly="true">
+            </td>
+
+        </tr>
+        <tr>
+
+            <th>技术先进型服务企业</th>
+            <td>
+                <input type="checkbox" class="qu2" name="qu2" disabled="disabled">
+            </td>
+            <th>获得时间：</th>
+            <td>
+                <input type="text" name="qu2_date" readOnly="true">
+            </td>
+        </tr>
+        <tr>
+            <th>软件企业认定</th>
+            <td>
+                <input type="checkbox" class="qu3" name="qu3" disabled="disabled">
+            </td>
+            <th>获得时间：</th>
+            <td>
+                <input type="text" name="qu3_date" readOnly="true">
+            </td>
+        </tr>
+        <tr>
+            <th>上规入库企业</th>
+            <td>
+                <input type="checkbox" class="qu4" name="qu4" disabled="disabled">
+            </td>
+            <th>获得时间：</th>
+            <td>
+                <input type="text" name="qu4_date" readOnly="true">
+            </td>
+        </tr>
+        <tr>
+            <th>上市企业</th>
+            <td>
+                <input type="checkbox" class="qu5" name="qu5" disabled="disabled">
+            </td>
+            <th>获得时间：</th>
+            <td>
+                <input type="text" name="qu5_date" readOnly="true">
+            </td>
+        </tr>
+        <tr>
+            <th>全国中小企业股份转让系统挂牌</th>
+            <td>
+                <input type="checkbox" class="qu6" name="qu6" disabled="disabled">
+            </td>
+            <th>获得时间：</th>
+            <td>
+                <input type="text" name="qu6_date" readOnly="true">
+            </td>
+        </tr>
+        <tr>
+            <th>成都(川藏)股权交易中心(融资板或交易板)挂牌</th>
+            <td>
+                <input type="checkbox" class="qu7" name="qu7" disabled="disabled">
+            </td>
+            <th>获得时间：</th>
+            <td>
+                <input type="text" name="qu7_date" readOnly="true">
+            </td>
+
+
+        </tr>
+    </table>
+
+    <table class="editForm col-6">
+        <caption>企业资质</caption>
+        <tr>
+            <th>公司是否有融资需求</th>
+            <td class="financing_req">
+                &#9633; 有&#9633; 无
+
+            </td>
+
+            <th>股权融资(RMB万元)</th>
+            <td>
+                <input type="text" name="equity_financing" readOnly="true">
+            </td>
+
+            <th>债权融资(RMB万元)</th>
+            <td>
+                <input type="text" name="debt_financing" readOnly="true">
+            </td>
+        </tr>
+        <tr>
+            <th>融资用途</th>
+            <td class="financing_purposes">
+
+                <input type="checkbox" class="financing_purposes1" name="financing_purposes" disabled="disabled"> 周转流动资金 
+                <br> <input type="checkbox" class="financing_purposes2" name="financing_purposes" disabled="disabled"> 购买生产设备 
+                <br> <input type="checkbox" class="financing_purposes3" name="financing_purposes" disabled="disabled"> 购买原材料
+                <br> <input type="checkbox" class="financing_purposes4" name="financing_purposes" disabled="disabled"> 购置固定资产
+                <br> <input type="checkbox" class="financing_purposes5" name="financing_purposes" disabled="disabled"> 扩大经营规模
+                <br> <input type="checkbox" class="financing_purposesother" name="financing_purposes"
+                            disabled="disabled"> 其他：
+                <input type="text" class="financing_purposesOther" name="financing_purposes" readOnly="true">
+            </td>
+
+            <th>是否已有银行贷款</th>
+            <td class="bank_loan">
+            </td>
+
+
+            <th>是否了解高新区融资政策</th>
+            <td class="policies">
+                &#9633; 是&#9633; 否
+                <input type="checkbox" name="policies" disabled="disabled">
+            </td>
+        </tr>
+        <tr>
+            <th>公司是否开展技术转移工作</th>
+            <td class="it_transfer">
+                &#9633; 有&#9633; 无
+                <input type="checkbox" name="it_transfer" disabled="disabled">
+            </td>
+
+            <th>公司累计技术转移数量(项)</th>
+            <td>
+                <input type="text" name="it_transfer_num" readOnly="true">
+            </td>
+
+            <th>国内技术转移(项)</th>
+            <td>
+                <input type="text" name="it_transfer_num1" readOnly="true">
+            </td>
+        </tr>
+        <tr>
+
+            <th>国际技术转移(项)</th>
+            <td>
+                <input type="text" name="it_transfer_num2" readOnly="true">
+            </td>
+
+            <th>公司累计技术转移金额(万元)</th>
+            <td>
+                <input type="text" name="it_transfer_money" readOnly="true">
+            </td>
+
+            <th>国内技术转移(万元)</th>
+            <td>
+                <input type="text" name="it_transfer_money1" readOnly="true">
+            </td>
+        </tr>
+        <tr>
+
+            <th>国际技术转移(万元)</th>
+            <td>
+                <input type="text" name="it_transfer_money2" readOnly="true">
+            </td>
+
+            <th>供需方</th>
+            <td class="sup_req">
+                <input type="checkbox" class="sup_req1" name="sup_req" disabled="disabled">无<br>
+                <input type="checkbox" class="sup_req2" name="sup_req" disabled="disabled">技术供给方(只卖出技术)<br>
+                <input type="checkbox" class="sup_req3" name="sup_req" disabled="disabled">技术需求方(只买入技术) <br>
+                <input type="checkbox" class="sup_req4" name="sup_req"
+                       disabled="disabled">技术供需方(根据项目不同，既购买过技术也卖出过技术)<br>
+
+            </td>
+
+            <th>公司是否开展了国际交流与合作</th>
+            <td class="com_coo">
+
+            </td>
+        </tr>
+        <tr>
+            <th>合作对象</th>
+            <td class="com_coo_oo">
+                <input type="checkbox" class="com_coo_oo1" name="com_coo_oo" disabled="disabled">政府部门<br>
+                <input type="checkbox" class="com_coo_oo2" name="com_coo_oo" disabled="disabled">科研院所<br>
+                <input type="checkbox" class="com_coo_oo3" name="com_coo_oo" disabled="disabled">企业<br>
+                <input type="checkbox" class="com_coo_oo4" name="com_coo_oo" disabled="disabled">大专院校<br>
+                <input type="checkbox" class="com_coo_oo5" name="com_coo_oo" disabled="disabled">金融投资机构<br>
+                <input type="checkbox" class="com_coo_ooother" name="com_coo_oo" disabled="disabled">其他:<br>
+
+                <input type="text" class="com_coo_ooOther" name="com_coo_ooOther" readOnly="true">
+
+            </td>
+
+            <th>合作类型</th>
+            <td class="com_coo_type">
+                <input type="checkbox" class="com_coo_type1" name="com_coo_oo" disabled="disabled">技术转移<br>
+                <input type="checkbox" class="com_coo_type2" name="com_coo_oo" disabled="disabled">合作研发<br>
+                <input type="checkbox" class="com_coo_type3" name="com_coo_oo" disabled="disabled">引进外资<br>
+                <input type="checkbox" class="com_coo_type4" name="com_coo_oo" disabled="disabled">引进设备或人才<br>
+                <input type="checkbox" class="com_coo_type5" name="com_coo_oo" disabled="disabled">承接外包业务<br>
+                <input type="checkbox" class="com_coo_type6" name="com_coo_oo" disabled="disabled">出口产品<br>
+                <input type="checkbox" class="com_coo_typeother" name="com_coo_oo" disabled="disabled">其他:
+                <input type="text" class="com_coo_typeOther" name="com_coo_typeOther" readOnly="true">
+
+
+            </td>
+
+            <th>合作国家</th>
+            <td>
+                <input type="text" name="com_coo_country" readOnly="true">
+            </td>
+        </tr>
+    </table>
+</form>
+<form class="SeniorApprovalForm">
+    <table class="editForm col-6">
+        <input type="text" hidden="hidden" name="ctable" value="bs_senior_service">
+        <input type="text" hidden="hidden" name="cid" class="table_name_id">
+        <input type="text" hidden="hidden" name="member_id" class="member_id">
+        <caption>会员审核</caption>
+        <tr>
+            <th width="5%">审批</th>
+            <td colspan="2"><select class="cstatsu" name="cstatus"></select></td>
+        </tr>
+        <tr>
+            <th>审批意见</th>
+            <td colspan="2"><textarea class="textarea" name="reason"></textarea></td>
+        </tr>
+        <tr>
+            <th>审核人</th>
+            <th class="username" style="text-align: left"></th>
+            <th style="text-align: left">联系电话:<input type="text" class="Tel_or_Phone" name="tel"></th>
+        </tr>
+    </table>
+</form>

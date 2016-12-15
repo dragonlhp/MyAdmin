@@ -1,0 +1,221 @@
+<table id="capitalreqGrid"></table>
+<div id="capitalreqToolbar" style="height: 40px; line-height: 40px">
+
+    <a href="javascript:void(0)" onclick="Option.AddOpen()" class="easyui-linkbutton"
+       data-options="iconCls:'icon-add',plain:true">添加</a>
+    <a href="javascript:void(0)" onclick="Option.UpOpen()" class="easyui-linkbutton"
+       data-options="iconCls:'icon-edit',plain:true">修改</a>
+    <a href="javascript:void(0)" onclick="Option.Delete()" class="easyui-linkbutton"
+       data-options="iconCls:'icon-close',plain:true">删除</a>
+    <a href="javascript:void(0)" onclick="Option.Reload()" class="easyui-linkbutton"
+       data-options="iconCls:'icon-reload',plain:true">刷新</a>
+
+    <a href="javascript:void(0)" onclick="Option.setStatus(2)" class="easyui-linkbutton"
+       data-options="iconCls:'icon-reload',plain:true">发布</a>
+    <a href="javascript:void(0)" onclick="Option.setStatus(1)" class="easyui-linkbutton"
+       data-options="iconCls:'icon-reload',plain:true">取消发布</a>
+
+    <form id="capitalreqSearchForm" style="float: right">
+        <select name="status" class="StatusSearch"></select>
+        <input name="keyword" class="TextSearch">
+    </form>
+
+</div>
+<div id="capitalreqDiaLog">
+    <form id="capitalreqForm" method="post" hidden="hidden">
+        <table class="editForm">
+            <tr>
+                <th>
+                    <label>语言:</label>
+                </th>
+                <td>
+                    <input class="lan" name="lan">
+                </td>
+
+                <th>
+                    <!--<label>状态:</label>-->
+                </th>
+                <td>
+                    <!--<input class="status" name="status">-->
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    <label>企业名称:</label>
+                </th>
+                <td>
+                    <input class="easyui-textbox" name="company">
+                </td>
+
+                <th>
+                    <label>资金需求量:</label>
+                </th>
+                <td>
+                    <input class="capital_req" name="capital_req">
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    <label>贷款用途:</label>
+                </th>
+                <td>
+                    <input class="easyui-textbox" name="useing">
+                </td>
+
+                <th>
+                    <label>法人代表:</label>
+                </th>
+                <td>
+                    <input class="easyui-textbox" name="legal">
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    <label>成立日期:</label>
+                </th>
+                <td>
+                    <input class="easyui-datebox" name="reg_date">
+                </td>
+
+                <th>
+                    <label>注册资本(万元):</label>
+                </th>
+                <td>
+                    <input class="easyui-textbox" name="captial">
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    <label>工商注册地:</label>
+                </th>
+                <td>
+                    <input class="easyui-textbox" name="reg_address">
+                </td>
+
+                <th>
+                    <label>所属行业:</label>
+                </th>
+                <td>
+                    <input class="easyui-textbox" name="industry">
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    <label>专利情况:</label>
+                </th>
+                <td>
+                    <input class="easyui-textbox" name="patent">
+                </td>
+
+                <th>
+                    <label>上年度销售收入(万元):</label>
+                </th>
+                <td>
+                    <input class="easyui-textbox" name="pre_income">
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    <label>上年度净利润(万元):</label>
+                </th>
+                <td>
+                    <input class="easyui-textbox" name="pre_profit">
+                </td>
+
+                <th>
+                    <label>上年度净利润(万元):</label>
+                </th>
+                <td>
+                    <input class="easyui-textbox" name="pre_profit">
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    <label>截止上年度银行贷款(万元):</label>
+                </th>
+                <td>
+                    <input class="easyui-textbox" name="pre_loan">
+                </td>
+
+                <th>
+                    <label>资金供应方:</label>
+                </th>
+                <td>
+                    <input class="easyui-textbox" name="money_supply">
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    <label>担保公司:</label>
+                </th>
+                <td>
+                    <input class="easyui-textbox" name="bonding_company">
+                </td>
+
+                <th>
+                    <label>贷款品种:</label>
+                </th>
+                <td>
+                    <input class="easyui-textbox" name="loan_type">
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    <label>贷款时间:</label>
+                </th>
+                <td>
+                    <input class="easyui-datebox test" name="loan_date">
+                </td>
+
+                <th>
+                    <label>还款时间:</label>
+                </th>
+                <td>
+                    <input class="easyui-datebox" name="return_date">
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    <label>利率:</label>
+                </th>
+                <td>
+                    <input class="easyui-textbox" name="rate">
+                </td>
+
+                <th>
+                    <label>备注:</label>
+                </th>
+                <td>
+                    <input class="easyui-textbox" name="note">
+                </td>
+            </tr>
+
+            <!--固定项-->
+            <tr>
+                <th>
+                    <label>联系人:</label>
+                </th>
+                <td>
+                    <input class="easyui-textbox" name="link_name">
+                </td>
+
+                <th>
+                    <label>联系电话:</label>
+                </th>
+                <td>
+                    <input class="easyui-textbox" name="link_tel">
+                </td>
+            </tr>
+
+        </table>
+    </form>
+</div>
+<!--加载js-->
+<script type="text/javascript" src="../../scripts/bs/capital/req.js"></script>
+<script type="text/javascript">
+    $(function () {
+        Option.TextSearch('.TextSearch');
+        Option.getSelectStatus('.StatusSearch');
+        Option.getCapitlAmong('.capital_req');
+    });
+</script>

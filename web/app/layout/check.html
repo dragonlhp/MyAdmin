@@ -1,0 +1,31 @@
+<script type="text/javascript">
+    $(function(){
+        $('#west_menu_check').accordion({
+            border: false,
+            animate: true,
+            multiple: false,
+            selected: 0
+        });
+
+        var menus=Qrck.get("admin/user/menus?pid="+Qrck.menusId.check+"&t=2",{},"",function(res){
+            var mc="";
+            if(res.length >0){
+                for(var i=0;i<res.length;i++){
+                     mc+=' <li><a onclick="addTab(\''+res[i]['name']+'\',\'../../'+res[i]['url']+'\')">'+res[i]['name']+'</a></li>';
+                }
+
+                $("#west_menu_check .submenu").append(mc);
+            }else{
+                $(".layout-button-left").click();
+            }
+
+            $("#west_menu_check .submenu li").eq(0).find("a").click();
+        });
+    })
+</script>
+<div id="west_menu_check">
+    <div title="审核管理" data-options="iconCls:'icon-my-task',cls:'menu_panel',border:false">
+        <ul class="submenu">
+        </ul>
+    </div>
+</div>

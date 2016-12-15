@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf8"/>
+    <meta name="applicable-device" content="pc">
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <meta http-equiv="Cache-Control" content="no-siteapp"/>
+    <meta http-equiv="Cache-Control" content="no-transform"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=EDGE"/>
+    <title>管理后台</title>
+    <link rel="stylesheet" type="text/css" href="web/common/ui/themes/metro/easyui.css">
+    <link rel="stylesheet" type="text/css" href="web/common/ui/themes/icon.css">
+    <link rel="stylesheet" type="text/css" href="web/common/css/layout.css">
+</head>
+<body>
+<div id="LoginBox">
+    <form id="loginform" method="post">
+        <table class="login">
+            <tr>
+                <th>用户名：</th>
+                <td><input class="easyui-validatebox" type="text" name="login_name" id="username"></td>
+            </tr>
+            <tr>
+                <th>密&nbsp;&nbsp;&nbsp;&nbsp;码：</th>
+                <td><input class="easyui-validatebox" type="password" name="pwd" id="password"></td>
+            </tr>
+        </table>
+    </form>
+</div>
+<script type="text/javascript" src="web/common/ui/jquery.min.js"></script>
+<script type="text/javascript" src="web/common/comjs/jquery.cookie.js"></script>
+<script type="text/javascript" src="web/common/ui/jquery.easyui.min.js"></script>
+<script type="text/javascript" src="web/common/ui/locale/easyui-lang-zh_CN.js"></script>
+<script type="text/javascript" src="web/common/comjs/jquery.json.min.js"></script>
+<script type="text/javascript" src="web/common/app/qrck.js"></script>
+<script type="text/javascript" src="web/common/app/login.js"></script>
+</body>
+</html>

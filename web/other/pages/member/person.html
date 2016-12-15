@@ -1,0 +1,51 @@
+<!--个人会员信息表-->
+<form class="person" method="post">
+    <table class="editForm">
+        <!--<tr>-->
+            <!--<th>-->
+                <!--<label>用户关联ID:</label>-->
+            <!--</th>-->
+            <!--<td>-->
+                <!--<input class="easyui-textbox" name="member_id">-->
+            <!--</td>-->
+        <!--</tr>-->
+        <tr>
+            <th>
+                <label>姓名:</label>
+            </th>
+            <td>
+                <input class="easyui-textbox" name="name">
+            </td>
+        </tr>
+
+        <tr>
+            <th>
+                <label>联系电话:</label>
+            </th>
+            <td>
+                <input class="easyui-textbox" name="mobile">
+            </td>
+        </tr>
+
+        <tr>
+            <th>
+                <label>Q Q:</label>
+            </th>
+            <td>
+                <input class="easyui-textbox" name="qq">
+            </td>
+        </tr>
+
+        <tr>
+            <td colspan="2" class="submitBox">
+                <a href="javascript:void(0)"
+                   onclick="member.MemberForm('.person','member/memberperson/save')"
+                   class="easyui-linkbutton saveButton"
+                   data-options="iconCls:'icon-save'">提交</a>
+                <a href="javascript:void(0)"
+                   onclick="member.clearForm('.person')" class="easyui-linkbutton saveButton"
+                   data-options="iconCls:'icon-remove'">清空</a>
+            </td>
+        </tr>
+    </table>
+</form>

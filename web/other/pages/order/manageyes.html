@@ -1,0 +1,82 @@
+<link rel="stylesheet" href="../../css/edit.css">
+<table id="orderyesGrid"></table>
+
+<div id="orderyesToolbar" style="height: 40px; line-height: 40px">
+
+
+    <a href="javascript:void(0)" onclick="Option.setStatus(2)" class="easyui-linkbutton"
+       data-options="iconCls:'icon-ok',plain:true">审核成功</a>
+    <a href="javascript:void(0)" onclick="Option.setStatus(3)" class="easyui-linkbutton"
+       data-options="iconCls:'icon-close',plain:true">审核失败</a>
+    <a href="javascript:void(0)" onclick="Option.UpOpen()" class="easyui-linkbutton"
+       data-options="iconCls:'icon-reload',plain:true">更新</a>
+<a href="javascript:void(0)" onclick="Option.Reload()" class="easyui-linkbutton"
+       data-options="iconCls:'icon-reload',plain:true">刷新</a>
+
+    <form id="orderyesSearchForm" style="float: right">
+
+        <select name="check_status" class="select_check_Status"></select>
+        <select name="status" class="status"></select>
+        <select name="pro_type" class="pro_type"></select>
+        <input name="keyword" class="textSearch">
+    </form>
+</div>
+<div id="orderyesDiaLog">
+    <form id="orderyesForm" method="post" hidden="hidden" enctype="multipart/form-data">
+        <table class="editForm">
+
+            <tr>
+                <th>
+                    <label>发布方:</label>
+                </th>
+                <td>
+                    <input class="easyui-textbox" disabled="disabled" name="supply_name">
+                </td>
+            </tr>
+
+            <tr>
+                <th>
+                    <label>申请方:</label>
+                </th>
+                <td>
+                    <input class="easyui-textbox" disabled="disabled" name="apply_name">
+                </td>
+            </tr>
+
+            <tr>
+                <th>
+                    <label>合作日期:</label>
+                </th>
+                <td>
+                    <input class="easyui-datebox"  name="cooperation">
+                </td>
+            </tr>
+
+
+
+
+            <tr>
+                <th>
+                    <label>审核状态:</label>
+                </th>
+                <td>
+                    <select class="check_status" name="check_status"></select>
+                </td>
+            </tr>
+
+        </table>
+    </form>
+</div>
+<!--加载js-->
+<script type="text/javascript" src="../../scripts/order/orderyes.js"></script>
+
+<script>
+    $(function () {
+        Option.TextSearch('.textSearch');
+        Option.getSelectCheckStatus('.select_check_Status');
+        Option.getSelectStatus('.status');
+        Option.getProType('.pro_type');
+        Option.TextSearch('.orderSearch');
+        Option.getStatus('.check_status');
+    });
+</script>

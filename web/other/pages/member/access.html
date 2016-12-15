@@ -1,0 +1,54 @@
+<!--权限表-->
+<table class="AccessTreegrid"></table>
+
+<table class="editForm">
+    <tr>
+        <td colspan="2" class="submitBox">
+            <a href="javascript:void(0)"
+               onclick="upadteTree('.AccessTreegrid')" class="easyui-linkbutton saveButton"
+               data-options="iconCls:'icon-save'">提交</a>
+            <a href="javascript:void(0)"
+               onclick="member.clearForm('.AccessTreegrid')" class="easyui-linkbutton saveButton"
+               data-options="iconCls:'icon-remove'">清空</a>
+        </td>
+    </tr>
+</table>
+<script>
+
+    var PostModule = 'member/member/getbsmenu';
+    var Tree = '.AccessTreegrid';
+    var PageUrl = '../../pages/';
+    var ToolbarT = '.CategoryToolbar';
+    var Title = '文章分类管理';
+    var upid = $(DataGrid).datagrid('getSelected');
+
+    //提交权限
+    function upadteTree(select) {
+        var getData = $(select).tree('getChecked');
+        var string = '';
+        for (var index in getData) {
+            string += string == "" ? getData[index].id : ',' + getData[index].id;
+        }
+        var upid = $(DataGrid).datagrid('getSelected');
+        Qrck.post('member/member/access', {access: string, ids: upid.id}, '', function () {
+            $.messager.confirm("提示", "更新成功!...！", function () {
+
+            });
+        }, function () {
+            $.messager.confirm("提示", "更新失败!...！", function () {
+
+            });
+        });
+    }
+
+    $(function () {
+        //分类列表
+        $(Tree).tree({
+            url: Qrck.baseApiUrl + PostModule + '?access=' + upid.access,
+            id: 1,
+            text: "Folder1",
+            checkbox: true,
+            lines: true
+        });
+    });
+</script>

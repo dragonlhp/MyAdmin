@@ -1,0 +1,106 @@
+<!--<script charset="utf-8" src="../../kindeditor/kindeditor.js"></script>-->
+<!--<script charset="utf-8" src="../../kindeditor/lang/cn.js"></script>-->
+<table id="articleGrid"></table>
+<div id="articleToolbar" style="height: 40px; line-height: 40px">
+
+    <a href="javascript:void(0)" onclick="Option.AddOpen()" class="easyui-linkbutton"
+       data-options="iconCls:'icon-add',plain:true">添加</a>
+    <a href="javascript:void(0)" onclick="Option.UpOpen()" class="easyui-linkbutton"
+       data-options="iconCls:'icon-edit',plain:true">修改</a>
+    <a href="javascript:void(0)" onclick="Option.setStatus(9)" class="easyui-linkbutton"
+       data-options="iconCls:'icon-close',plain:true">删除</a>
+    <a href="javascript:void(0)" onclick="Option.Reload()" class="easyui-linkbutton"
+       data-options="iconCls:'icon-reload',plain:true">刷新</a>
+
+    <a href="javascript:void(0)" onclick="Option.setStatus(2)" class="easyui-linkbutton"
+       data-options="iconCls:'icon-reload',plain:true">发布</a>
+    <a href="javascript:void(0)" onclick="Option.setStatus(1)" class="easyui-linkbutton"
+       data-options="iconCls:'icon-reload',plain:true">取消发布</a>
+
+    <form id="articleSearchForm" style="float: right">
+        <select class="selectGetcategory"></select>
+        <select name="status" class="selectStatus"></select>
+        <input name="keyword" class="articleSearch">
+    </form>
+
+</div>
+<div id="articleDiaLog">
+    <form id="articleForm" method="post" hidden="hidden">
+        <table class="editForm">
+            <tr>
+                <th>
+                    <label>文章名称:</label>
+                </th>
+                <td>
+                    <input class="easyui-textbox" name="title">
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    <label>文章类型:</label>
+                </th>
+                <td>
+                    <input class="category_id" name="category_id">
+
+                </td>
+            </tr>
+
+            <tr>
+                <th>
+                    <label>关 键 字:</label>
+                </th>
+                <td>
+                    <input class="easyui-textbox" name="keywords">
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    <lable>文章描述:</lable>
+                </th>
+                <td>
+                    <input class="easyui-textbox" name="description">
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    <lable>来源:</lable>
+                </th>
+                <td>
+                    <input class="easyui-textbox" name="source">
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    <lable>文章内容:</lable>
+
+                </th>
+                <td>
+                    <div id="contentedit">
+                    </div>
+
+                </td>
+            </tr>
+        </table>
+    </form>
+</div>
+<!--加载js-->
+<script type="text/javascript" src="../../app/cms/js/article.js"></script>
+<!--<script type="text/javascript" src="../../scripts/bs/bs.js"></script>-->
+
+<script>
+    $(function () {
+
+
+        Option.getTreeForm('.category_id', 'cms/category/getcategory');
+
+        $('.easyui-textbox').textbox({
+            width: 300
+        });
+        $('.easyui-datebox').datebox({
+            width: 200
+        });
+        Option.TextSearch('.articleSearch');
+        Option.getSelectStatus('.selectStatus');
+        Option.getTree('.selectGetcategory', 'cms/category/getcategory');
+    });
+</script>

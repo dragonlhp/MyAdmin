@@ -1,0 +1,107 @@
+<table id="skillreqGrid"></table>
+<div id="skillreqToolbar" style="height: 40px; line-height: 40px">
+
+    <a href="javascript:void(0)" onclick="Option.AddOpen()" class="easyui-linkbutton"
+       data-options="iconCls:'icon-add',plain:true">添加</a>
+    <a href="javascript:void(0)" onclick="Option.UpOpen()" class="easyui-linkbutton"
+       data-options="iconCls:'icon-edit',plain:true">修改</a>
+    <a href="javascript:void(0)" onclick="Option.Delete()" class="easyui-linkbutton"
+       data-options="iconCls:'icon-close',plain:true">删除</a>
+    <a href="javascript:void(0)" onclick="Option.Reload()" class="easyui-linkbutton"
+       data-options="iconCls:'icon-reload',plain:true">刷新</a>
+
+    <a href="javascript:void(0)" onclick="Option.setStatus(2)" class="easyui-linkbutton"
+       data-options="iconCls:'icon-reload',plain:true">发布</a>
+    <a href="javascript:void(0)" onclick="Option.setStatus(1)" class="easyui-linkbutton"
+       data-options="iconCls:'icon-reload',plain:true">取消发布</a>
+
+    <form id="skillreqSearchForm" style="float: right">
+        <select name="status" class="StatusSearch"></select>
+        <input name="keyword" class="TextSearch">
+    </form>
+
+</div>
+<div id="skillreqDiaLog">
+    <form id="skillreqForm" method="post"  hidden="hidden">
+        <table class="editForm">
+            <tr>
+                <th>
+                    <label>语言:</label>
+                </th>
+                <td>
+                    <input class="lan" name="lan">
+                </td>
+            </tr>
+            <!--<tr>-->
+                <!--<th>-->
+                    <!--<label>状态:</label>-->
+                <!--</th>-->
+                <!--<td>-->
+                    <!--<input class="reqAddStatus" name="status">-->
+                <!--</td>-->
+            <!--</tr>-->
+            <tr>
+                <th>
+                    <label>企业名称:</label>
+                </th>
+                <td>
+                    <input class="easyui-textbox" name="company">
+                </td>
+            </tr>
+
+            <tr>
+                <th>
+                    <label>技术需求:</label>
+                </th>
+                <td>
+                    <input class="easyui-textbox" name="reqs">
+                </td>
+            </tr>
+
+            <tr>
+                <th>
+                    <label>技术内容:</label>
+                </th>
+                <td>
+                    <input class="easyui-textbox" name="content">
+                </td>
+            </tr>
+
+            <tr>
+                <th>
+                    <label>拟交易价格:</label>
+                </th>
+                <td>
+                    <input class="easyui-textbox" name="price">
+                </td>
+            </tr>
+
+
+            <!--固定项-->
+            <tr>
+                <th>
+                    <label>联系人:</label>
+                </th>
+                <td>
+                    <input class="easyui-textbox" name="link_name">
+                </td>
+            </tr>
+            <tr>
+
+                <th>
+                    <label>联系电话:</label>
+                </th>
+                <td>
+                    <input class="easyui-textbox" name="link_tel">
+                </td>
+            </tr>
+
+        </table>
+    </form>
+</div>
+<!--加载js-->
+<script type="text/javascript" src="../../scripts/bs/skill/req.js"></script>
+<script type="text/javascript">
+    Option.TextSearch('.TextSearch');
+    Option.getSelectStatus('.StatusSearch');
+</script>

@@ -1,0 +1,145 @@
+<!--孵化企业信息表-->
+<form class="incubator" method="post">
+    <table class="editForm">
+
+        <tr>
+            <!--<th>-->
+                <!--<label>用户关联ID:</label>-->
+            <!--</th>-->
+            <!--<td>-->
+                <!--<input class="easyui-textbox" name="member_id">-->
+            <!--</td>-->
+
+            <th>
+                <label>孵化器名称:</label>
+            </th>
+            <td>
+                <input class="easyui-textbox" name="name">
+            </td>
+        </tr>
+
+        <tr>
+            <th>
+                <label>联系人:</label>
+            </th>
+            <td>
+                <input class="easyui-textbox" name="link_name">
+            </td>
+
+            <th>
+                <label>联系人手机号码:</label>
+            </th>
+            <td>
+                <input class="easyui-textbox" name="link_mobile">
+            </td>
+        </tr>
+
+        <tr>
+            <th>
+                <label>联系人办公电话:</label>
+            </th>
+            <td>
+                <input class="easyui-textbox" name="link_tel">
+            </td>
+
+            <th>
+                <label>联系人传真:</label>
+            </th>
+            <td>
+                <input class="easyui-textbox" name="link_fax">
+            </td>
+        </tr>
+
+        <tr>
+            <th>
+                <label>企业负责人:</label>
+            </th>
+            <td>
+                <input class="easyui-textbox" name="co_name">
+            </td>
+
+            <th>
+                <label>企业负责人手机号码:</label>
+            </th>
+            <td>
+                <input class="easyui-textbox" name="co_mobile">
+            </td>
+        </tr>
+
+        <tr>
+            <th>
+                <label>QQ:</label>
+            </th>
+            <td>
+                <input class="easyui-textbox" name="qq">
+            </td>
+
+            <th>
+                <label>通讯地址:</label>
+            </th>
+            <td>
+                <input class="easyui-textbox" name="address">
+            </td>
+        </tr>
+
+        <tr>
+            <th>
+                <label>邮编号码:</label>
+            </th>
+            <td>
+                <input class="easyui-textbox" name="postal">
+            </td>
+
+            <th>
+                <label>注册资本:</label>
+            </th>
+            <td>
+                <input class="easyui-textbox" name="capital">
+            </td>
+        </tr>
+
+        <tr>
+            <th>
+                <label>园区地址:</label>
+            </th>
+            <td>
+                <input class="easyui-textbox" name="garden_address">
+            </td>
+
+            <th>
+                <label>园区场地面积:</label>
+            </th>
+            <td>
+                <input class="easyui-textbox" name="garden_area">
+            </td>
+        </tr>
+
+        <tr>
+            <th>
+                <label>园区入驻企业数:</label>
+            </th>
+            <td>
+                <input class="easyui-textbox" name="garden_cnum">
+            </td>
+
+            <th>
+                <label>从业人员数:</label>
+            </th>
+            <td>
+                <input class="easyui-textbox" name="work_num">
+            </td>
+        </tr>
+
+        <tr>
+            <td colspan="4" class="submitBox">
+                <a href="javascript:void(0)"
+                   onclick="member.MemberForm('.incubator','member/memberincubator/save')"
+                   class="easyui-linkbutton saveButton"
+                   data-options="iconCls:'icon-save'">提交</a>
+                <a href="javascript:void(0)"
+                   onclick="member.clearForm('.incubator')" class="easyui-linkbutton saveButton"
+                   data-options="iconCls:'icon-remove'">清空</a>
+            </td>
+        </tr>
+    </table>
+</form>

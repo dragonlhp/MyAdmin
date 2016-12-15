@@ -1,0 +1,35 @@
+<table id="admin_user_grid"></table>
+<!-- 创建任务表单 -->
+<div id="admin_user_form" class="hide">
+	<form id="admin_user_form_box" method="post">
+	<table class="fromstyle">
+		<tr>
+			<th>用户角色：</th>
+			<td id="admin_user_form_roles">
+			</td>
+		</tr>
+		<tr>
+			<th>登录名：</th>
+			<td><input id="admin_user_add_login_name" type="text" name="login_name" class="text" /></td>
+		</tr>
+		<tr>
+			<th>密码：</th>
+			<td><input id="admin_user_add_pwd" type="password" name="pwd" class="text" /></td>
+		</tr>
+		<tr>
+			<th>昵称：</th>
+			<td><input id="admin_user_add_name" type="text" name="name" class="text"/></td>
+		</tr>
+		<tr>
+			<th>状态：</th>
+			<td>
+			<span class="radioSpan">
+                <label><input type="radio" name="status" value="1" checked="checked" />启用</label>&nbsp;&nbsp;&nbsp;&nbsp;
+                <label><input type="radio" name="status" value="2" />禁用</label>
+            </span>
+            </td>
+		</tr>
+	</table>
+	</form>
+</div>
+<script type="text/javascript" src="../../scripts/admin/user.js"></script>

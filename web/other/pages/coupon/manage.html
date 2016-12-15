@@ -1,0 +1,89 @@
+<link rel="stylesheet" href="../../css/edit.css">
+<table id="couponGrid"></table>
+
+<div id="couponToolbar" style="height: 40px; line-height: 40px">
+
+    <a href="javascript:void(0)" onclick="Option.Pass(2)" class="easyui-linkbutton"
+       data-options="iconCls:'icon-add',plain:true">通过</a>
+    <a href="javascript:void(0)" onclick="Option.Pass(3)" class="easyui-linkbutton"
+       data-options="iconCls:'icon-close',plain:true">拒绝</a>
+    <a href="javascript:void(0)" onclick="Option.Pass(9)" class="easyui-linkbutton"
+       data-options="iconCls:'icon-close',plain:true">删除</a>
+
+    <select class="selectCoupon"></select>
+
+    <input class="couponSearch">
+</div>
+<div id="couponDiaLog">
+    <form id="couponForm" method="post" hidden="hidden" enctype="multipart/form-data">
+        <table class="editForm">
+
+            <tr>
+                <th>
+                    <label>申请单位:</label>
+                </th>
+                <td>
+                    <input class="easyui-textbox" name="req_company">
+                </td>
+            </tr>
+
+            <tr>
+                <th>
+                    <label>服务机构:</label>
+                </th>
+                <td>
+                    <input class="easyui-textbox" name="services">
+                </td>
+            </tr>
+
+            <tr>
+                <th>
+                    <label>合同金额:</label>
+                </th>
+                <td>
+                    <input class="easyui-textbox" name="contract_price">
+                </td>
+            </tr>
+
+
+            <tr>
+                <th>
+                    <label>服务折扣:</label>
+                </th>
+                <td>
+                    <input class="easyui-textbox" name="discounts">
+                </td>
+            </tr>
+
+
+            <tr>
+                <th>
+                    <label>联系人:</label>
+                </th>
+                <td>
+                    <input class="easyui-textbox" name="link_name">
+                </td>
+            </tr>
+
+
+            <tr>
+                <th>
+                    <label>联系方式:</label>
+                </th>
+                <td>
+                    <input class="easyui-textbox" name="link_tel">
+                </td>
+            </tr>
+
+        </table>
+    </form>
+</div>
+<!--加载js-->
+<script type="text/javascript" src="../../scripts/coupon/coupon.js"></script>
+
+<script>
+    $(function () {
+        Option.TextSearch('.couponSearch');
+        Option.getService('.selectCoupon', 'coupon/coupon/getserviceall');
+    });
+</script>

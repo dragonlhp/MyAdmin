@@ -1,0 +1,174 @@
+<!--企业会员信息表-->
+<form class="company" method="post">
+    <table class="editForm">
+
+        <!--<tr>-->
+        <!--<th>-->
+        <!--<label>用户关联ID:</label>-->
+        <!--</th>-->
+        <!--<td>-->
+        <!--<input class="easyui-textbox" name="member_id">-->
+        <!--</td>-->
+        <!--</tr>-->
+
+        <tr>
+            <th>
+                <label>行业:</label>
+            </th>
+            <td>
+                <input class="industry_id" name="industry_id">
+            </td>
+        </tr>
+
+
+        <tr>
+            <th>
+                <label>孵化器:</label>
+            </th>
+            <td>
+                <input class="incubator_id" name="incubator_id">
+            </td>
+        </tr>
+
+
+        <tr>
+            <th>
+                <label>孵化器会员:</label>
+            </th>
+            <td>
+                <input class="incubator_member_id" name="incubator_member_id">
+            </td>
+        </tr>
+
+        <tr>
+            <th>
+                <label>单位名称:</label>
+            </th>
+            <td>
+                <input class="easyui-textbox" name="name">
+            </td>
+        </tr>
+
+        <tr>
+            <th>
+                <label>联系人:</label>
+            </th>
+            <td>
+                <input class="easyui-textbox" name="link_name">
+            </td>
+        </tr>
+
+        <tr>
+            <th>
+                <label>联系人手机号码:</label>
+            </th>
+            <td>
+                <input class="easyui-textbox" name="link_mobile">
+            </td>
+        </tr>
+
+
+        <tr>
+            <th>
+                <label>联系人办公电话:</label>
+            </th>
+            <td>
+                <input class="easyui-textbox" name="link_tel">
+            </td>
+        </tr>
+
+
+        <tr>
+            <th>
+                <label>联系人传真:</label>
+            </th>
+            <td>
+                <input class="easyui-textbox" name="link_fax">
+            </td>
+        </tr>
+
+        <tr>
+            <th>
+                <label>企业负责人:</label>
+            </th>
+            <td>
+                <input class="easyui-textbox" name="co_name">
+            </td>
+        </tr>
+
+
+        <tr>
+            <th>
+                <label>企业负责人手机号码:</label>
+            </th>
+            <td>
+                <input class="easyui-textbox" name="co_mobile">
+            </td>
+        </tr>
+
+        <tr>
+            <th>
+                <label>QQ:</label>
+            </th>
+            <td>
+                <input class="easyui-textbox" name="qq">
+            </td>
+        </tr>
+
+        <tr>
+            <th>
+                <label>通讯地址:</label>
+            </th>
+            <td>
+                <input class="easyui-textbox" name="address">
+            </td>
+        </tr>
+
+
+        <tr>
+            <th>
+                <label>邮编号码:</label>
+            </th>
+            <td>
+                <input class="easyui-textbox" name="postal">
+            </td>
+        </tr>
+
+        <tr>
+            <th>
+                <label>注册资本:</label>
+            </th>
+            <td>
+                <input class="easyui-textbox" name="capital">
+            </td>
+        </tr>
+
+
+        <tr>
+            <td colspan="2" class="submitBox">
+                <a href="javascript:void(0)"
+                   onclick="member.MemberForm('.company','member/membercompany/save')"
+                   class="easyui-linkbutton saveButton"
+                   data-options="iconCls:'icon-save'">提交</a>
+                <a href="javascript:void(0)"
+                   onclick="member.clearForm('.company')" class="easyui-linkbutton saveButton"
+                   data-options="iconCls:'icon-remove'">清空</a>
+            </td>
+        </tr>
+    </table>
+</form>
+<script>
+    member.getComboBox('.industry_id', 'member/member/getbsbdatatype?type=1');  //行业类型
+    member.getComboBox('.incubator_id', 'member/member/getincubator', function () { //获取孵化器企业名称
+        var val = $('.incubator_id').combobox('getValue');
+        Qrck.get('member/member/getincubatormember', {id: val}, '', function (vdata) {
+            $('.incubator_member_id').textbox('setValue', vdata);
+
+        });
+    });
+    $('.incubator_member_id').textbox({
+        width: 300,
+        disabled: true
+    });
+
+</script>

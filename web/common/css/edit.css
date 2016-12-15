@@ -1,0 +1,39 @@
+table.editForm {
+    width: 98%;
+    margin: 15px auto;
+    /*height: 1050px;*/
+    border: 1px solid #EEE;
+    border-collapse: collapse;
+    font-size: 12px;
+    padding-bottom: 30px;
+}
+
+table.editForm th {
+    width: 20%;
+    line-height: 34px;
+    text-align: right;
+    border: 1px solid #EEE;
+    padding-right: 10px;
+    font-weight: normal;
+    background-color: #F7f7f7;
+}
+
+table.editForm td {
+    text-align: left;
+    border: 1px solid #EEE;
+    padding-left: 10px;
+}
+
+
+table.editForm input.txt {
+    width: 90%;
+    padding: 3px 5px;
+    line-height: 18px;
+    border: none;
+    background-color: #EEE;
+}
+
+table.editForm td.submitBox {
+    text-align: center;
+    padding: 30px;
+}

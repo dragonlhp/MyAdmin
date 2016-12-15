@@ -1,0 +1,25 @@
+<!--基本信息列表-->
+<script type="text/javascript" src="../../scripts/member/member.js"></script>
+<!--文章管理页面-->
+<table id="memberGrid"></table>
+
+<div id="memberToolbar" style="height: 40px; line-height: 40px">
+
+    <!--<a href="javascript:void(0)" onclick="member.AddOpen()" class="easyui-linkbutton"-->
+       <!--data-options="iconCls:'icon-add',plain:true">添加</a>-->
+    <a href="javascript:void(0)" onclick="member.UpOpen()" class="easyui-linkbutton"
+       data-options="iconCls:'icon-edit',plain:true">修改</a>
+    <a href="javascript:void(0)" onclick="member.Delete()" class="easyui-linkbutton"
+       data-options="iconCls:'icon-close',plain:true">删除</a>
+    <a href="javascript:void(0)" onclick="member.Reload()" class="easyui-linkbutton"
+       data-options="iconCls:'icon-reload',plain:true">刷新</a>
+
+    <!--<input class="TextSearch">-->
+
+</div>
+<script>
+//    member.TextSearch('.TextSearch');
+</script>
+
+<!--加载js-->
+<script type="text/javascript" src="../../scripts/member/MemberList.js"></script>
